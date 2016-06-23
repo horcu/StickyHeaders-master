@@ -1,0 +1,1 @@
+{"Id":"0f9d05aa-bc12-438d-9bd0-c9480952f24b","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\npublic class Test {\r\n\r\n\t/**\r\n\t * @param args\r\n\t */\r\n\tpublic static void main(String[] args) {\r\n\t\tCallHandler ch = new CallHandler();\r\n\t}\r\n\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

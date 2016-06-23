@@ -1,0 +1,1 @@
+{"Id":"20cafdcd-8079-45ca-95d9-5e42dcfa2809","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_03_Jukebox;\r\n\r\npublic class Song {\r\n\tprivate String songName;\r\n\tpublic String toString() { return songName; }\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

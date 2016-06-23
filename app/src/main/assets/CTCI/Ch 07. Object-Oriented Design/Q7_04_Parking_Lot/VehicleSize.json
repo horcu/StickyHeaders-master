@@ -1,0 +1,1 @@
+{"Id":"4400b1ed-3d70-459c-a428-c377a0cf7427","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_04_Parking_Lot;\r\n\r\npublic enum VehicleSize {\r\n\tMotorcycle, \r\n\tCompact, \r\n\tLarge,\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

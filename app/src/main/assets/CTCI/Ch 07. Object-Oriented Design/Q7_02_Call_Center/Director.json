@@ -1,0 +1,1 @@
+{"Id":"878584e6-3c88-4b8f-8ba6-aac8e92aafaf","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\nclass Director extends Employee {\r\n    public Director(CallHandler callHandler) {\r\n    \tsuper(callHandler);\r\n    \trank = Rank.Director;\r\n    }\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

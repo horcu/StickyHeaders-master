@@ -1,0 +1,1 @@
+{"Id":"ea028b8d-e867-4d1e-8a6f-c51b35d9504b","Topic":"Ch 03. Stacks and Queues","Question":"","Solution":"package Q3_06_Animal_Shelter;\r\n\r\npublic class Cat extends Animal {\r\n\tpublic Cat(String n) {\r\n\t\tsuper(n);\r\n\t}\r\n\t\r\n\tpublic String name() {\r\n\t\treturn \"Cat: \" + name;\r\n\t}\r\n}\r\n\r\n","Chapter":"Ch 03. Stacks and Queues"}

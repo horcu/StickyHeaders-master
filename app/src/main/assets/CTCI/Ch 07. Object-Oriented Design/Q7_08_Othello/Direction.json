@@ -1,0 +1,1 @@
+{"Id":"b9511835-b462-47fe-9f70-6ddb6d7ffe29","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_08_Othello;\r\n\r\npublic enum Direction {\r\n\tleft, right, up, down\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

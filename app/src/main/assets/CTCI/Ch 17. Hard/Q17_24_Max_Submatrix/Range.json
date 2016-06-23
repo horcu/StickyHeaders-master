@@ -1,0 +1,1 @@
+{"Id":"eb59bd1c-2437-480a-a39b-6fe1934a51ae","Topic":"Ch 17. Hard","Question":"","Solution":"package Q17_24_Max_Submatrix;\n\npublic class Range {\n\tpublic int start, end, sum;\n\tpublic Range(int start, int end, int sum) {\n\t\tthis.start = start;\n\t\tthis.end = end;\n\t\tthis.sum = sum;\n\t}\n}\n","Chapter":"Ch 17. Hard"}

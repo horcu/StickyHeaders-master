@@ -30,6 +30,13 @@ public class CollapsingSectionsDemoActivity extends DemoActivity {
 		super.onCreate(savedInstanceState);
 
 		String topLevelFolder = "CTCI";
+
+
+        adapter = new SimpleDemoAdapter(new LinkedHashMap<String, ArrayList<Lesson>>(), false, true, false);
+
+        recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
+        recyclerView.setAdapter(adapter);
+
 		new LoadAssetsAsync(this, topLevelFolder).execute();
 	}
 
@@ -45,6 +52,8 @@ public class CollapsingSectionsDemoActivity extends DemoActivity {
 		@Override
 		protected LinkedHashMap<String, ArrayList<Lesson>> doInBackground(Void... voids) {
 
+            //show the spinner
+
           // Object records = GetFromCache(this.folder);
           //  if(records == null){
 
@@ -59,11 +68,9 @@ public class CollapsingSectionsDemoActivity extends DemoActivity {
 		@Override
 		protected void onPostExecute(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
 
-
-            adapter = new SimpleDemoAdapter(sectionInfo, false, true, false);
-
-            recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
-            recyclerView.setAdapter(adapter);
+        adapter = new SimpleDemoAdapter(new LinkedHashMap<String, ArrayList<Lesson>>(), false, true, false);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyAllSectionsDataSetChanged();
 		}
 	}
 

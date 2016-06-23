@@ -1,0 +1,1 @@
+{"Id":"b506e9af-02c2-470e-875a-fbd0f60ba486","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\npublic class Caller {\r\n\tprivate String name;\r\n\tprivate int userId;\r\n\tpublic Caller(int id, String nm) {\r\n\t\tname = nm;\r\n\t\tuserId = id;\r\n\t}\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

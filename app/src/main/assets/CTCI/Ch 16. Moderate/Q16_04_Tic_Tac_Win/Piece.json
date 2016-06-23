@@ -1,0 +1,1 @@
+{"Id":"bca7a7bf-5fef-436b-84fb-61e7ce164edf","Topic":"Ch 16. Moderate","Question":"","Solution":"package Q16_04_Tic_Tac_Win;\n\nenum Piece { Empty, Red, Blue };\n","Chapter":"Ch 16. Moderate"}

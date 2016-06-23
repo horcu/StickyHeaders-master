@@ -1,0 +1,1 @@
+{"Id":"1b19ea0f-eb92-4646-a64a-bbaf3b975dda","Topic":"Ch 02. Linked Lists","Question":"","Solution":"package Q2_02_Return_Kth_To_Last;\n\nimport CtCILibrary.AssortedMethods;\n\npublic class Tester {\n\n\t\n\tpublic static void main(String[] args) {\n\n\t}\n\n}\n","Chapter":"Ch 02. Linked Lists"}

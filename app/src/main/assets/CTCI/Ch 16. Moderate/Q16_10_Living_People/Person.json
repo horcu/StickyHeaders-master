@@ -1,0 +1,1 @@
+{"Id":"3f8250ae-8e66-491f-a25d-fa702a1de892","Topic":"Ch 16. Moderate","Question":"","Solution":"package Q16_10_Living_People;\n\npublic class Person {\n\tpublic int birth;\n\tpublic int death;\n\tpublic Person(int birthYear, int deathYear) {\n\t\tbirth = birthYear;\n\t\tdeath = deathYear;\n\t}\n}\n","Chapter":"Ch 16. Moderate"}

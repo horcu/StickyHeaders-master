@@ -1,0 +1,1 @@
+{"Id":"bdc4675d-d700-472b-927c-5f71a0e18275","Topic":"Ch 03. Stacks and Queues","Question":"","Solution":"package Q3_02_Stack_Min;\r\n\r\nclass NodeWithMin {\r\n    public int value;\r\n    public int min;\r\n    public NodeWithMin(int v, int min){\r\n        value = v;\r\n        this.min = min;\r\n    }\r\n}\r\n","Chapter":"Ch 03. Stacks and Queues"}

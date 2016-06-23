@@ -1,0 +1,1 @@
+{"Id":"741a1833-c19b-406c-a425-dd20a155c363","Topic":"Ch 16. Moderate","Question":"","Solution":"package Q16_04_Tic_Tac_Win;\n\npublic class Position {\n\tpublic int row, column;\n\tpublic Position(int row, int column) {\n\t\tthis.row = row;\n\t\tthis.column = column;\n\t}\n}\n","Chapter":"Ch 16. Moderate"}

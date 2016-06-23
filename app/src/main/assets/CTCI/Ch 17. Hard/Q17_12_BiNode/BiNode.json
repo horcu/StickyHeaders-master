@@ -1,0 +1,1 @@
+{"Id":"3789b261-5bee-4d4d-8145-efee743f9645","Topic":"Ch 17. Hard","Question":"","Solution":"package Q17_12_BiNode;\r\n\r\npublic class BiNode {\r\n\tpublic BiNode node1;\r\n\tpublic BiNode node2;\r\n\tpublic int data; \r\n\tpublic BiNode(int d) {\r\n\t\tdata = d;\r\n\t}\r\n}\r\n","Chapter":"Ch 17. Hard"}

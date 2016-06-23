@@ -1,0 +1,1 @@
+{"Id":"758ce2fd-2629-4911-9439-1ebc16a81853","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_10_Minesweeper;\n\npublic class Question {\t\n\tpublic static void main(String[] args) {\n\t\tGame game = new Game(7, 7, 3);\n\t\tgame.initialize();\n\t\tgame.start();\n\t}\n\n}\n","Chapter":"Ch 07. Object-Oriented Design"}
