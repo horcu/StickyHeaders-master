@@ -1,0 +1,1 @@
+{"Id":"a3b0e4c3-0d93-454a-9343-5fddba67aa97","Topic":"Node.java","Question":"","Solution":"package Q3_03_Stack_of_Plates;\r\n\r\npublic class Node {\r\n\tpublic Node above;\r\n\tpublic Node below;\r\n\tpublic int value;\r\n\tpublic Node(int value) {\r\n\t\tthis.value = value;\r\n\t}\r\n}\r\n","Chapter":"Q3_03_Stack_of_Plates"}

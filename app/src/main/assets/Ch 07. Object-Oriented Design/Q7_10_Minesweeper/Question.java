@@ -1,0 +1,1 @@
+{"Id":"15c5ed7f-81b7-4ed4-9003-cf284d388581","Topic":"Question.java","Question":"","Solution":"package Q7_10_Minesweeper;\n\npublic class Question {\t\n\tpublic static void main(String[] args) {\n\t\tGame game = new Game(7, 7, 3);\n\t\tgame.initialize();\n\t\tgame.start();\n\t}\n\n}\n","Chapter":"Q7_10_Minesweeper"}

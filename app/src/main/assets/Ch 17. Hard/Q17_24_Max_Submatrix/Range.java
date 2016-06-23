@@ -1,0 +1,1 @@
+{"Id":"2bf3ff9e-cafe-409f-ac79-b81c0890936d","Topic":"Range.java","Question":"","Solution":"package Q17_24_Max_Submatrix;\n\npublic class Range {\n\tpublic int start, end, sum;\n\tpublic Range(int start, int end, int sum) {\n\t\tthis.start = start;\n\t\tthis.end = end;\n\t\tthis.sum = sum;\n\t}\n}\n","Chapter":"Q17_24_Max_Submatrix"}

@@ -1,0 +1,1 @@
+{"Id":"a7988d1a-864c-4cee-b44b-e1d41132ca94","Topic":"Ambiguous.java","Question":"","Solution":"package Introduction;\r\n\r\npublic class Ambiguous extends Shape {\r\n\tprivate double area = 10;\r\n\t\r\n\tpublic double computeArea() {\r\n\t\treturn area;\r\n\t}\r\n}\r\n","Chapter":"Introduction"}

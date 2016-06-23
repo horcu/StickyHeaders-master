@@ -1,0 +1,1 @@
+{"Id":"92e51cf5-e96a-4ca0-a0d8-d254178818b7","Topic":"Square.java","Question":"","Solution":"package Introduction;\r\n\r\npublic class Square extends Shape {\r\n\tprivate double len = 5;\r\n\tpublic void printMe() {\r\n\t\tSystem.out.println(\"I am a square.\");\r\n\t}\r\n\t\r\n\tpublic double computeArea() {\r\n\t\treturn len * len;\r\n\t}\t\r\n}\r\n","Chapter":"Introduction"}

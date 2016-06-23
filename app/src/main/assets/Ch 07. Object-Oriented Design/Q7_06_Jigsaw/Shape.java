@@ -1,0 +1,1 @@
+{"Id":"d3db3219-47a2-479e-91b1-d00e3a6efc16","Topic":"Shape.java","Question":"","Solution":"package Q7_06_Jigsaw;\n\npublic enum Shape {\n\tINNER, OUTER, FLAT;\n\t\t\n\tpublic Shape getOpposite() {\t\t\n\t\tswitch (this) {\n\t\t\tcase INNER: return OUTER;\n\t\t\tcase OUTER: return INNER;\n\t\t\tdefault: return null;\n\t\t}\n\t}\n}\n","Chapter":"Q7_06_Jigsaw"}

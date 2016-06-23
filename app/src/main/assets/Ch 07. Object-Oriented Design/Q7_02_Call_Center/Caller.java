@@ -1,0 +1,1 @@
+{"Id":"e6edef7d-6cc5-4017-8177-1de43ecd8e46","Topic":"Caller.java","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\npublic class Caller {\r\n\tprivate String name;\r\n\tprivate int userId;\r\n\tpublic Caller(int id, String nm) {\r\n\t\tname = nm;\r\n\t\tuserId = id;\r\n\t}\r\n}\r\n","Chapter":"Q7_02_Call_Center"}

@@ -1,0 +1,1 @@
+{"Id":"49e8ccda-2a54-481d-bfa2-1e867649d09b","Topic":"Node.java","Question":"","Solution":"package Q9_05_Cache;\r\n\r\npublic class Node {\r\n\tpublic Node prev;\r\n\tpublic Node next;\r\n\tpublic String[] results;\r\n\tpublic String query;\r\n\r\n\tpublic Node(String q, String[] res) {\r\n\t\tresults = res;\r\n\t\tquery = q;\r\n\t}\r\n}\r\n","Chapter":"Q9_05_Cache"}

@@ -1,0 +1,1 @@
+{"Id":"922e2f4e-e986-4306-b771-f456c91969e1","Topic":"Shape.java","Question":"","Solution":"package Introduction;\r\n\r\npublic abstract class Shape {\r\n\tpublic void printMe() {\r\n\t\tSystem.out.println(\"I am a shape.\");\r\n\t}\r\n\t\r\n\tpublic abstract double computeArea();\r\n}\r\n","Chapter":"Introduction"}

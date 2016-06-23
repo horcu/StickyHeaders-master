@@ -1,0 +1,1 @@
+{"Id":"5918cb6f-2075-4a60-8d62-6beceb0a7239","Topic":"Position.java","Question":"","Solution":"package Q16_04_Tic_Tac_Win;\n\npublic class Position {\n\tpublic int row, column;\n\tpublic Position(int row, int column) {\n\t\tthis.row = row;\n\t\tthis.column = column;\n\t}\n}\n","Chapter":"Q16_04_Tic_Tac_Win"}

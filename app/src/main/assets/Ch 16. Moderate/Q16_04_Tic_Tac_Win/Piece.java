@@ -1,0 +1,1 @@
+{"Id":"1883cdb0-c237-4954-b1cc-d1218ba84c1f","Topic":"Piece.java","Question":"","Solution":"package Q16_04_Tic_Tac_Win;\n\nenum Piece { Empty, Red, Blue };\n","Chapter":"Q16_04_Tic_Tac_Win"}

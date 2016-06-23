@@ -1,0 +1,1 @@
+{"Id":"f24798b9-c2e9-4b32-8684-437fa4dd7d83","Topic":"BoxComparator.java","Question":"","Solution":"package Q8_13_Stack_of_Boxes;\n\nimport java.util.Comparator;\n\npublic class BoxComparator implements Comparator<Box> {\n\t@Override\n\tpublic int compare(Box x, Box y){\n\t\treturn y.height - x.height;\n\t}\n}\n","Chapter":"Q8_13_Stack_of_Boxes"}

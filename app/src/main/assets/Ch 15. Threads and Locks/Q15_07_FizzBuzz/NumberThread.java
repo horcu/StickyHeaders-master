@@ -1,0 +1,1 @@
+{"Id":"52ac0c9d-d437-4e91-8d5b-5a9c4ced125e","Topic":"NumberThread.java","Question":"","Solution":"package Q15_07_FizzBuzz;\n\npublic class NumberThread extends FizzBuzzThread {\n\tpublic NumberThread(boolean div3, boolean div5, int max) {\n\t\tsuper(div3, div5, max, null);\n\t}\n\n\tpublic void print() {\n\t\tSystem.out.println(current);\n\t}\n}\n","Chapter":"Q15_07_FizzBuzz"}

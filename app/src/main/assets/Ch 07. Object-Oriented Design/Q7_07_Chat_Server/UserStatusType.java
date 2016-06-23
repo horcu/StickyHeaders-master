@@ -1,0 +1,1 @@
+{"Id":"afe03735-37ec-4ddf-88fb-90dce67f991f","Topic":"UserStatusType.java","Question":"","Solution":"package Q7_07_Chat_Server;\r\n\r\npublic enum UserStatusType {\r\n\tOffline, Away, Idle, Available, Busy\r\n}\r\n","Chapter":"Q7_07_Chat_Server"}

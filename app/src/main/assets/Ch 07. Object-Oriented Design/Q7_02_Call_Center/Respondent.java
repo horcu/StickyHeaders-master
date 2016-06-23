@@ -1,0 +1,1 @@
+{"Id":"2062b3ad-c149-4777-84e4-ae26c81d2e15","Topic":"Respondent.java","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\nclass Respondent extends Employee {\r\n    public Respondent(CallHandler callHandler) {\r\n    \tsuper(callHandler);\r\n    \trank = Rank.Responder;\r\n    }\r\n}\r\n","Chapter":"Q7_02_Call_Center"}
