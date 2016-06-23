@@ -1,1 +1,0 @@
-{"Id":"015b6ee8-a578-46fb-8045-ce284a4aae7e","Topic":"IntWrapper.java","Question":"","Solution":"package Q4_05_Validate_BST;\r\n\r\npublic class IntWrapper {\r\n\tpublic IntWrapper(int m) {\r\n\t\tdata = m;\r\n\t}\r\n\tpublic int data;\r\n}\r\n","Chapter":"Q4_05_Validate_BST"}

@@ -1,1 +1,0 @@
-{"Id":"5e98d6bf-2495-4994-981b-cf183a652dd8","Topic":"Ex_05.java","Question":"","Solution":"package Big_O;\n\npublic class Ex_05 {\n\tpublic static int f(int n) {\n\t\tif (n <= 0) {\n\t\t\treturn 1;\n\t\t}\n\t\treturn f(n - 1) + f(n - 1);\n\t}\n\t\n\tpublic static void main(String[] args) {\n\t\tf(1);\n\t}\t\t\n}\n","Chapter":"Big_O"}

@@ -1,1 +1,0 @@
-{"Id":"f9ac94eb-5097-4574-bc1a-2008824bbb87","Topic":"Color.java","Question":"","Solution":"package Q7_08_Othello;\r\n\r\npublic enum Color {\r\n\tWhite, Black\r\n}\r\n","Chapter":"Q7_08_Othello"}

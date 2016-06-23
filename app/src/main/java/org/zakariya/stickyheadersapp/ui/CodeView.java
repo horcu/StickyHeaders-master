@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.zakariya.stickyheadersapp.R;
+import org.zakariya.stickyheadersapp.custom.constants;
 
 import eu.fiskur.syntaxview.SyntaxView;
 
@@ -29,10 +30,15 @@ public class CodeView extends AppCompatActivity {
             }
         });
 
+        String code = "No code for this section";
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            code = extras.getString(constants.CODE);
+        }
+
         SyntaxView syntaxView = (SyntaxView) findViewById(R.id.syntaxview);
 
-        String helloWorld = "private static final String helloWorld = \"HelloWorld!\";";
-        syntaxView.loadString(helloWorld, "java");
+        syntaxView.loadString(code, "java");
     }
 
 }

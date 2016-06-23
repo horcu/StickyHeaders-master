@@ -7,6 +7,11 @@ import android.view.View;
 
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
+import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.model.Lesson;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Demonstrates use of StickyHeaderLayoutManager::setHeaderPositionChangedCallback
@@ -36,6 +41,8 @@ public class HeaderCallbacksDemoActivity extends DemoActivity {
 			}
 		});
 
-		recyclerView.setAdapter(new SimpleDemoAdapter(5, 5, false, false, false));
+		String topLevelFolder = "CTCI";
+		LinkedHashMap<String, ArrayList<Lesson>> sectionInfo = AssetGetter.GetLessonsAssets(this, topLevelFolder);
+		recyclerView.setAdapter(new SimpleDemoAdapter(sectionInfo, false, false, false));
 	}
 }

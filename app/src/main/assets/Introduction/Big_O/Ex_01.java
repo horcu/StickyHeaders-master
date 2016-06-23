@@ -1,1 +1,0 @@
-{"Id":"4b78450f-9f37-40dc-aca3-182295e29e9d","Topic":"Ex_01.java","Question":"","Solution":"package Big_O;\n\npublic class Ex_01 {\n\tpublic static int sum(int n) {\n\t\tif (n <= 0) {\n\t\t\treturn 0;\n\t\t}\n\t\treturn n + sum(n-1);\n\t}\n\t\n\tpublic static void main(String[] args) {\n\t\tint s = sum(4);\n\t\tSystem.out.println(s);\n\t}\n}\n","Chapter":"Big_O"}

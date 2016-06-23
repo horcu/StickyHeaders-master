@@ -1,1 +1,0 @@
-{"Id":"33df38ca-cf42-48c6-9dd0-c0ecef7b2d42","Topic":"Test.java","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\npublic class Test {\r\n\r\n\t/**\r\n\t * @param args\r\n\t */\r\n\tpublic static void main(String[] args) {\r\n\t\tCallHandler ch = new CallHandler();\r\n\t}\r\n\r\n}\r\n","Chapter":"Q7_02_Call_Center"}

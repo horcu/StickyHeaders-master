@@ -1,6 +1,7 @@
 package org.zakariya.stickyheadersapp.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -13,9 +14,14 @@ import android.widget.TextView;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheadersapp.R;
+import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.model.Lesson;
+import org.zakariya.stickyheadersapp.ui.CodeView;
+import org.zakariya.stickyheadersapp.ui.MainActivity;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * SimpleDemoAdapter, just shows demo data
@@ -25,7 +31,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	static final String TAG = SimpleDemoAdapter.class.getSimpleName();
 	static final boolean USE_DEBUG_APPEARANCE = false;
 
-	private class Section {
+	public class Section {
 		int index;
 		int copyCount;
 		String header;
@@ -43,6 +49,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 			textView = (TextView) itemView.findViewById(R.id.textView);
 			adapterPositionTextView = (TextView) itemView.findViewById(R.id.adapterPositionTextView);
 
+			textView.setOnClickListener(this);
 			if (!SimpleDemoAdapter.this.showAdapterPositions) {
 				adapterPositionTextView.setVisibility(View.GONE);
 			}
@@ -53,10 +60,22 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 			int adapterPosition = getAdapterPosition();
 			final int section = SimpleDemoAdapter.this.getSectionForAdapterPosition(adapterPosition);
 			final int item = SimpleDemoAdapter.this.getPositionOfItemInSection(section, adapterPosition);
-		}
+
+            Lesson lesson = GetLessonForSection(item, section);
+
+			Intent intent = new Intent(v.getContext(), CodeView.class);
+			intent.putExtra(constants.CODE, lesson.getSolution());
+			(v.getContext()).startActivity(intent);
+        }
 	}
 
-	public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder implements View.OnClickListener {
+    private Lesson GetLessonForSection(int itemIndex, int sectIndex) {
+
+        Section section = sections.get(sectIndex);
+        return section.items.get(itemIndex);
+    }
+
+    public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder implements View.OnClickListener {
 		TextView textView;
 		TextView adapterPositionTextView;
 			ImageButton collapseButton;
@@ -114,27 +133,28 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	boolean showCollapsingSectionControls;
 	boolean showAdapterPositions;
 
-	public SimpleDemoAdapter(int numSections, int numItemsPerSection, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
+	public SimpleDemoAdapter(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
 		this.showModificationControls = showModificationControls;
 		this.showCollapsingSectionControls = showCollapsingSectionControls;
 		this.showAdapterPositions = showAdapterPositions;
 
-		for (int i = 0; i < numSections; i++) {
+        ArrayList<String> keys = new ArrayList<>(sectionInfo.keySet());
+        ArrayList<List<Lesson>> values = new ArrayList<List<Lesson>>(sectionInfo.values());
 
-			//todo grab the lessons for this section from the firebase db abd pass it in
-			ArrayList<Lesson> lessons = new ArrayList<>();
-			appendSection(i, lessons);
+        for (int i = 0; i < sectionInfo.keySet().size(); i++) {
+            String currentKey = keys.get(i);
+
+            Section section = new Section();
+            section.header = currentKey;
+            section.footer = "End of : " + currentKey;
+            section.index = i;
+            section.items.addAll(values.get(i));
+			appendSection(i, section);
 		}
 	}
 
-	void appendSection(int index, ArrayList<Lesson> lessons) {
-		Section section = new Section();
-		section.index = index;
-		section.copyCount = 0;
-		section.header = Integer.toString(index);
-		section.footer = "End of section " + index;
-		section.items.addAll(lessons);
-		sections.add(section);
+	void appendSection(int index,Section section) {
+		sections.add(index, section);
 	}
 
 	void onToggleSectionCollapse(int sectionIndex) {

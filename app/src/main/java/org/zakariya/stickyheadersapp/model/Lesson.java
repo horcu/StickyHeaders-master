@@ -16,13 +16,13 @@ public class Lesson {
 //                Chapter = GetChapter(filePath)
 //    };
 
-   private int Id;
+   private String Id;
    private String question;
    private String Solution;
    private String Topic;
    private String Chapter;
 
-    public Lesson(int id, String question, String solution, String topic, String chapter){
+    public Lesson(String id, String question, String solution, String topic, String chapter){
         Id = id;
         this.question = question;
         Solution = solution;
@@ -30,11 +30,11 @@ public class Lesson {
         Chapter = chapter;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         Id = id;
     }
 

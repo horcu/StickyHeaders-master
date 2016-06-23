@@ -1,1 +1,0 @@
-{"Id":"b1b92af6-e9fb-4809-97a2-03a399e3fab6","Topic":"VehicleSize.java","Question":"","Solution":"package Q7_04_Parking_Lot;\r\n\r\npublic enum VehicleSize {\r\n\tMotorcycle, \r\n\tCompact, \r\n\tLarge,\r\n}\r\n","Chapter":"Q7_04_Parking_Lot"}

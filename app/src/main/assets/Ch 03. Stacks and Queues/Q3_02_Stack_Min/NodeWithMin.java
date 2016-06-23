@@ -1,1 +1,0 @@
-{"Id":"df2d665b-8b40-4792-a1e7-01711973030d","Topic":"NodeWithMin.java","Question":"","Solution":"package Q3_02_Stack_Min;\r\n\r\nclass NodeWithMin {\r\n    public int value;\r\n    public int min;\r\n    public NodeWithMin(int v, int min){\r\n        value = v;\r\n        this.min = min;\r\n    }\r\n}\r\n","Chapter":"Q3_02_Stack_Min"}

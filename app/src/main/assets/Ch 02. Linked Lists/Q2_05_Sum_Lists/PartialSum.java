@@ -1,1 +1,0 @@
-{"Id":"5993f001-94a8-4ec5-a673-75068d6f0216","Topic":"PartialSum.java","Question":"","Solution":"package Q2_05_Sum_Lists;\r\n\r\nimport CtCILibrary.LinkedListNode;\r\n\r\npublic class PartialSum {\r\n\tpublic LinkedListNode sum = null;\r\n\tpublic int carry = 0;\r\n}\r\n","Chapter":"Q2_05_Sum_Lists"}

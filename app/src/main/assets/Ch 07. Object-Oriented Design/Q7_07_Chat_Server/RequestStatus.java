@@ -1,1 +1,0 @@
-{"Id":"c4131cd0-5d37-4a64-a27e-4e3a3001f807","Topic":"RequestStatus.java","Question":"","Solution":"package Q7_07_Chat_Server;\r\n\r\npublic enum RequestStatus {\r\n\tUnread, Read, Accepted, Rejected\r\n}\r\n","Chapter":"Q7_07_Chat_Server"}

@@ -1,1 +1,0 @@
-{"Id":"0cc5dea8-e9a5-4566-8d4c-dd4a9f0156d6","Topic":"Person.java","Question":"","Solution":"package Q16_10_Living_People;\n\npublic class Person {\n\tpublic int birth;\n\tpublic int death;\n\tpublic Person(int birthYear, int deathYear) {\n\t\tbirth = birthYear;\n\t\tdeath = deathYear;\n\t}\n}\n","Chapter":"Q16_10_Living_People"}

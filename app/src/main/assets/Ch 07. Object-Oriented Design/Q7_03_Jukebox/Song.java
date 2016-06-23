@@ -1,1 +1,0 @@
-{"Id":"ba2de53f-2be1-45ce-9d51-e626ddf1dd8e","Topic":"Song.java","Question":"","Solution":"package Q7_03_Jukebox;\r\n\r\npublic class Song {\r\n\tprivate String songName;\r\n\tpublic String toString() { return songName; }\r\n}\r\n","Chapter":"Q7_03_Jukebox"}

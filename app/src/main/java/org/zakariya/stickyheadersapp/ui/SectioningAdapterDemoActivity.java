@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
+import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.model.Lesson;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by shamyl on 4/26/16.
@@ -15,6 +20,9 @@ public class SectioningAdapterDemoActivity extends DemoActivity {
 		super.onCreate(savedInstanceState);
 
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		recyclerView.setAdapter(new SimpleDemoAdapter(5, 5, false, false, false));
+
+		String topLevelFolder = "CTCI";
+		LinkedHashMap<String, ArrayList<Lesson>> sectionInfo = AssetGetter.GetLessonsAssets(this, topLevelFolder);
+		recyclerView.setAdapter(new SimpleDemoAdapter(sectionInfo, false, false, false));
 	}
 }

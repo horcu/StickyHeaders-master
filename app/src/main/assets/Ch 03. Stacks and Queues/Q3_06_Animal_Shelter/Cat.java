@@ -1,1 +1,0 @@
-{"Id":"042cb371-89d5-4805-9ffb-6dda04f77943","Topic":"Cat.java","Question":"","Solution":"package Q3_06_Animal_Shelter;\r\n\r\npublic class Cat extends Animal {\r\n\tpublic Cat(String n) {\r\n\t\tsuper(n);\r\n\t}\r\n\t\r\n\tpublic String name() {\r\n\t\treturn \"Cat: \" + name;\r\n\t}\r\n}\r\n\r\n","Chapter":"Q3_06_Animal_Shelter"}

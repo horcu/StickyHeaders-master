@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/MANIFEST.MF'
+    }
 }
 
 dependencies {
@@ -31,4 +40,8 @@ dependencies {
     compile 'com.github.fiskurgit:SyntaxView:1.0.3'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.lifeofcoding:cacheutilslibrary:1.1.0@aar'
+    compile 'com.google.code.gson:gson:2.2.2'
+    compile 'commons-io:commons-io:2.4'
 }

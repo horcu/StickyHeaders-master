@@ -17,6 +17,7 @@
 			android:layout_height="wrap_content"
 			android:padding="16dp"
 			android:text="Medium Text"
+			android:fontFamily="sans-serif-condensed"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_gravity="start|center_vertical"
 			/>

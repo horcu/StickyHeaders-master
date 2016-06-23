@@ -1,1 +1,0 @@
-{"Id":"2c0ccc2e-c97d-4dad-9fed-d174105644a8","Topic":"Tester.java","Question":"","Solution":"package Q2_02_Return_Kth_To_Last;\n\nimport CtCILibrary.AssortedMethods;\n\npublic class Tester {\n\n\t\n\tpublic static void main(String[] args) {\n\n\t}\n\n}\n","Chapter":"Q2_02_Return_Kth_To_Last"}

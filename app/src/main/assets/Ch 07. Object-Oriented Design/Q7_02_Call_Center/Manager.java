@@ -1,1 +1,0 @@
-{"Id":"805c9952-4848-4898-b591-1275b31bb0cd","Topic":"Manager.java","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\nclass Manager extends Employee {\r\n    public Manager(CallHandler callHandler) {\r\n    \tsuper(callHandler);\r\n    \trank = Rank.Manager;\r\n    }\r\n}\r\n","Chapter":"Q7_02_Call_Center"}
