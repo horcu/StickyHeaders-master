@@ -48,8 +48,6 @@ public class DemoActivity extends AppCompatActivity {
 		}
 
 
-		// This runs once to save all the data to the firebase database
-		//if that is going to cost me then move all files locally
 	}
 
 	@Override

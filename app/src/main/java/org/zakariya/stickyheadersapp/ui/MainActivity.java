@@ -2,6 +2,7 @@ package org.zakariya.stickyheadersapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
+		toolbar.setTitle("Cracking the Code Interview");
+		toolbar.setSubtitle("by Gayle Laakmann McDowell");
+        toolbar.setTitleTextColor(Color.parseColor("#444444"));
+        toolbar.setSubtitleTextColor(Color.parseColor("#666666"));
 		tabs = (TabLayout) findViewById(R.id.tabs);
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 		viewPager.setAdapter(new MainActivityViewsPager(getSupportFragmentManager()));
@@ -128,22 +133,22 @@ public class MainActivity extends AppCompatActivity {
 					new DemoModel(getString(R.string.demo_list_item_addressbook_title),
 							getString(R.string.demo_list_item_addressbook_description),
 							AddressBookDemoActivity.class),
-
-					new DemoModel(getString(R.string.demo_list_item_callbacks_title),
-							getString(R.string.demo_list_item_callbacks_description),
-							HeaderCallbacksDemoActivity.class),
+//
+//					new DemoModel(getString(R.string.demo_list_item_callbacks_title),
+//							getString(R.string.demo_list_item_callbacks_description),
+//							HeaderCallbacksDemoActivity.class),
 
 					new DemoModel(getString(R.string.demo_list_item_collapsing_headers_title),
 							getString(R.string.demo_list_item_collapsing_headers_description),
-							CollapsingSectionsDemoActivity.class),
+							CollapsingSectionsDemoActivity.class)
 
-					new DemoModel(getString(R.string.demo_list_item_stress_test_title),
-							getString(R.string.demo_list_item_stress_test_description),
-							StressTestDemoActivity.class),
+//					new DemoModel(getString(R.string.demo_list_item_stress_test_title),
+//							getString(R.string.demo_list_item_stress_test_description),
+//							StressTestDemoActivity.class),
 
-					new DemoModel(getString(R.string.demo_list_item_sections_title),
-							getString(R.string.demo_list_item_sections_description),
-							SectioningAdapterDemoActivity.class)
+//					new DemoModel(getString(R.string.demo_list_item_sections_title),
+//							getString(R.string.demo_list_item_sections_description),
+//							SectioningAdapterDemoActivity.class)
 			};
 
 			recyclerView.setAdapter(new DemoAdapter(getContext(), demos, new ItemClickListener() {

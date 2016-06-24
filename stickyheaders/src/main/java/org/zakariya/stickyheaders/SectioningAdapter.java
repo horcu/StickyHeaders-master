@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * SectioningAdapter
@@ -32,6 +34,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	public static final int TYPE_GHOST_HEADER = 1;
 	public static final int TYPE_ITEM = 2;
 	public static final int TYPE_FOOTER = 3;
+
 
 	private static class Section {
 		int adapterPosition;    // adapterPosition of first item (the header) of this sections

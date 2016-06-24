@@ -1,5 +1,6 @@
 package org.zakariya.stickyheadersapp.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,8 @@ public class CodeView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setVisibility(View.GONE);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,8 +40,8 @@ public class CodeView extends AppCompatActivity {
         }
 
         SyntaxView syntaxView = (SyntaxView) findViewById(R.id.syntaxview);
-
-        syntaxView.loadString(code, "java");
+        syntaxView.setLoadingColor(Color.parseColor("#83BA30"));
+        syntaxView.loadString(code, "java", "monokai");
     }
 
 }

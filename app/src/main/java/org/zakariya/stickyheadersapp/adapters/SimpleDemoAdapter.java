@@ -18,6 +18,7 @@ import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.model.Lesson;
 import org.zakariya.stickyheadersapp.ui.CodeView;
 import org.zakariya.stickyheadersapp.ui.MainActivity;
+import org.zakariya.stickyheadersapp.ui.PdfView;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -91,6 +92,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 			if (!SimpleDemoAdapter.this.showCollapsingSectionControls) {
 				collapseButton.setVisibility(View.GONE);
 			}
+            textView.setOnClickListener(new HeaderOpenPdfClickListener());
 		}
 
 		void updateSectionCollapseToggle(boolean sectionIsCollapsed) {
@@ -138,6 +140,12 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 		this.showCollapsingSectionControls = showCollapsingSectionControls;
 		this.showAdapterPositions = showAdapterPositions;
 
+         AddSections(sectionInfo);
+	}
+
+    public void AddSections(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
+        sections = null;
+        sections = new ArrayList<>();
         ArrayList<String> keys = new ArrayList<>(sectionInfo.keySet());
         ArrayList<List<Lesson>> values = new ArrayList<List<Lesson>>(sectionInfo.values());
 
@@ -151,9 +159,9 @@ public class SimpleDemoAdapter extends SectioningAdapter {
             section.items.addAll(values.get(i));
 			appendSection(i, section);
 		}
-	}
+    }
 
-	void appendSection(int index,Section section) {
+    void appendSection(int index,Section section) {
 		sections.add(index, section);
 	}
 
@@ -282,4 +290,12 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 		return b.toString();
 	}
 
+    private class HeaderOpenPdfClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), PdfView.class);
+            //intent.putExtra(constants.PAGE, view.getTag());
+            (view.getContext()).startActivity(intent);
+        }
+    }
 }

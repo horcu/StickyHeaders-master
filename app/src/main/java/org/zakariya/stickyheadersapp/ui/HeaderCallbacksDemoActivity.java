@@ -8,6 +8,7 @@ import android.view.View;
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.custom.cacheController;
 import org.zakariya.stickyheadersapp.model.Lesson;
 
 import java.util.ArrayList;
@@ -42,7 +43,11 @@ public class HeaderCallbacksDemoActivity extends DemoActivity {
 		});
 
 		String topLevelFolder = "CTCI";
-		LinkedHashMap<String, ArrayList<Lesson>> sectionInfo = AssetGetter.GetLessonsAssets(this, topLevelFolder);
-		recyclerView.setAdapter(new SimpleDemoAdapter(sectionInfo, false, false, false));
+        LinkedHashMap<String, ArrayList<Lesson>> sections = cacheController.GetFromCache(topLevelFolder);
+        if(sections == null){
+            sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
+            cacheController.WriteToCache(topLevelFolder, sections);
+        }
+		recyclerView.setAdapter(new SimpleDemoAdapter(sections, false, false, false));
 	}
 }

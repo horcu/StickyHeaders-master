@@ -1,80 +1,57 @@
 package org.zakariya.stickyheadersapp.ui;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.view.View;
 
+import com.google.gson.reflect.TypeToken;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.custom.AssetsLoaded;
+import org.zakariya.stickyheadersapp.custom.cacheController;
 import org.zakariya.stickyheadersapp.model.Lesson;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by shamyl on 6/7/16.
  */
-public class CollapsingSectionsDemoActivity extends DemoActivity {
+public class CollapsingSectionsDemoActivity extends DemoActivity implements AssetsLoaded {
 
     SimpleDemoAdapter adapter;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		String topLevelFolder = "CTCI";
+        progressBar.setVisibility(View.VISIBLE);
+        String topLevelFolder = "CTCI";
+        LinkedHashMap<String, ArrayList<Lesson>> sections = cacheController.GetFromCache(topLevelFolder);
+        if(sections == null){
+           sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
+            cacheController.WriteToCache(topLevelFolder, sections);
+        }
 
-
-        adapter = new SimpleDemoAdapter(new LinkedHashMap<String, ArrayList<Lesson>>(), false, true, false);
-
+        adapter = new SimpleDemoAdapter(sections, false, true, false);
         recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
         recyclerView.setAdapter(adapter);
 
-		new LoadAssetsAsync(this, topLevelFolder).execute();
-	}
-
-	class LoadAssetsAsync extends AsyncTask<Void, Void, LinkedHashMap<String, ArrayList<Lesson>>> {
-
-        String folder = null;
-        Context ctx = null;
-        public LoadAssetsAsync(Context ctx, String folder){
-            this.folder = folder;
-            this.ctx = ctx;
-        }
-
-		@Override
-		protected LinkedHashMap<String, ArrayList<Lesson>> doInBackground(Void... voids) {
-
-            //show the spinner
-
-          // Object records = GetFromCache(this.folder);
-          //  if(records == null){
-
-                //get
-            LinkedHashMap<String, ArrayList<Lesson>> records = AssetGetter.GetLessonsAssets(this.ctx, this.folder);
-                //add to cache
-           //     CacheUtils.writeObjectFile(this.folder, records );
-           // }
-            return  records;
-		}
-
-		@Override
-		protected void onPostExecute(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
-
-        adapter = new SimpleDemoAdapter(new LinkedHashMap<String, ArrayList<Lesson>>(), false, true, false);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyAllSectionsDataSetChanged();
-		}
-	}
-
-    private Object GetFromCache(String folder) {
-     return CacheUtils.readDataMapFile(folder);
+        progressBar.setVisibility(View.GONE);
+        //new LoadAssetsAsync(this, topLevelFolder).execute();
     }
+
+
+
+    @Override
+    public void onAssetsLoadingCompleted(LinkedHashMap<String, ArrayList<Lesson>> sections) {
+        adapter.AddSections(sections);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.GONE);
+    }
+
+
+
 }

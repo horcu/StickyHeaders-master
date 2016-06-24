@@ -37,21 +37,22 @@
 			android:id="@+id/cloneButton"
 			android:layout_width="48dp"
 			android:layout_height="48dp"
-			android:src="@drawable/ic_filter_none_black"
+			android:src="@drawable/ic_navigation_check"
 			android:tint="@color/actionButton"
+			android:visibility="invisible"
 			android:layout_gravity="center_vertical"
 			style="?android:attr/borderlessButtonStyle"
 			android:contentDescription="@string/action_clone"/>
 
-		<ImageButton
-			android:id="@+id/deleteButton"
-			android:layout_width="48dp"
-			android:layout_height="48dp"
-			android:src="@drawable/ic_clear_black"
-			android:tint="@color/actionButton"
-			android:layout_gravity="center_vertical"
-			style="?android:attr/borderlessButtonStyle"
-			android:contentDescription="@string/action_delete"/>
+		<!--<ImageButton-->
+			<!--android:id="@+id/deleteButton"-->
+			<!--android:layout_width="48dp"-->
+			<!--android:layout_height="48dp"-->
+			<!--android:src="@drawable/ic_clear_black"-->
+			<!--android:tint="@color/actionButton"-->
+			<!--android:layout_gravity="center_vertical"-->
+			<!--style="?android:attr/borderlessButtonStyle"-->
+			<!--android:contentDescription="@string/action_delete"/>-->
 
 	</LinearLayout>
 

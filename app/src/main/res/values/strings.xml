@@ -2,8 +2,8 @@
     <string name="app_name">StickyHeaders</string>
     <string name="action">Action</string>
 
-    <string name="activity_main_pager_main">Demos</string>
-    <string name="activity_main_pager_about">About</string>
+    <string name="activity_main_pager_main">Examples</string>
+    <string name="activity_main_pager_about">Videos</string>
 
     <string name="action_delete">Delete</string>
     <string name="action_clone">Clone</string>
@@ -16,7 +16,7 @@
     <string name="title_simple_demo">Sticky Header Callbacks</string>
     <string name="title_sectioning_adapter_demo">Sections</string>
     <string name="title_stress_test_demo">Stress Test</string>
-    <string name="title_collapsing_headers_demo">Collapsing Headers</string>
+    <string name="title_collapsing_headers_demo">Chapters</string>
 
     <string name="about_title">About</string>
     <string name="about_adapter_title">SectioningAdapter</string>
@@ -26,8 +26,8 @@
     <string name="about_layout_text">The StickyHeaderLayoutManager is a simple RecyclerView.LayoutManager designed for use with the SectioningAdapter. It works like an iOS UITableView where section titles are fixed to the top of the scrollview when content is scrolled up. Its very useful for scenarios like address books.</string>
 
     <string name="main_demo_list_title">Demos</string>
-    <string name="demo_list_item_addressbook_title">Address Book</string>
-    <string name="demo_list_item_addressbook_description">A simple address book demo using sections to organize people by first letter of last name</string>
+    <string name="demo_list_item_addressbook_title">The book in PDF</string>
+    <string name="demo_list_item_addressbook_description">Click to launch PDF reader</string>
 
     <string name="demo_list_item_callbacks_title">Sticky Header Callbacks</string>
     <string name="demo_list_item_callbacks_description">Demonstrates use of callbacks on header positioning, allowing for elevation effects, etc</string>
@@ -38,8 +38,8 @@
     <string name="demo_list_item_sections_title">SectioningAdapter</string>
     <string name="demo_list_item_sections_description">Demonstrates that SectioningAdapter can be used with a vanilla RecyclerView.LinearLayoutManager</string>
 
-    <string name="demo_list_item_collapsing_headers_title">Collapsing Headers</string>
-    <string name="demo_list_item_collapsing_headers_description">Demonstrates collapsing headers, where sections can be opened and closed</string>
+    <string name="demo_list_item_collapsing_headers_title">Chapters</string>
+    <string name="demo_list_item_collapsing_headers_description">Coding examples specific to each chapter in the book.</string>
 
 
     <string name="demo_addressbook_load_error_action">Info</string>
@@ -52,5 +52,10 @@
     <string name="alert_dialog_button_title_jump">Jump</string>
     <string name="alert_dialog_button_title_smooth">Smooth</string>
     <string name="title_activity_code_view">CodeView</string>
+    <string name="ctci">Cracking the Coding Interview</string>
+
+    <string name="title_activity_pdfview">PDFView</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
