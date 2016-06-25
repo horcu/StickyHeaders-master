@@ -1,8 +1,15 @@
 package org.zakariya.stickyheadersapp.api;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 
 
@@ -97,8 +104,16 @@ public class AssetGetter {
 
                     String json = AssetGetter.getJsonStringBySectionName(ctx, fileName);
                     Lesson lesson = AssetGetter.getLessonFromJson(json);
-                    lesson.setChapter(sectionKey);
-                    lesson.setTopic(subsectName);
+                    String parsedName = subsectName.replace("_", " ");
+                    parsedName = parsedName + ":\r\n " + jsonFile;
+
+                    final SpannableString text = new SpannableString(parsedName);
+                    text.setSpan(new RelativeSizeSpan(1.5f), 0, text.length(),  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    text.setSpan(new ForegroundColorSpan(Color.parseColor("#777777")), parsedName.indexOf(":"), parsedName.length() -1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    lesson.setTopic(text.toString()); //(parsedName + ":\r\n " + jsonFile);
+                    lesson.setChapter(subsectName);
                     ArrayList<Lesson> sect = sectionInfo.get(sectionKey);
                     sect.add(x, lesson);
                 }

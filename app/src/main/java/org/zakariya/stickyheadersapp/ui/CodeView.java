@@ -19,10 +19,10 @@ public class CodeView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+     //   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
-        toolbar.setVisibility(View.GONE);
+     //   toolbar.setVisibility(View.GONE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,8 +40,11 @@ public class CodeView extends AppCompatActivity {
         }
 
         SyntaxView syntaxView = (SyntaxView) findViewById(R.id.syntaxview);
+
+        String[] themes = syntaxView.themes();
+
         syntaxView.setLoadingColor(Color.parseColor("#83BA30"));
-        syntaxView.loadString(code, "java", "monokai");
+        syntaxView.loadString(code, "java", "railscasts");
     }
 
 }
