@@ -115,7 +115,7 @@ public class PdfView extends AppCompatActivity {
         pdfView = (com.github.barteksc.pdfviewer.PDFView) findViewById(R.id.pdfView);
 
         //todo pass in the page number and go directly to that page
-        pdfView.fromAsset("ctci6.pdf.pdf")
+        pdfView.fromAsset("ctci6")
                // .pages(0, 2, 1, 3, 3, 3) //all pages are displayed by default
                 .enableSwipe(true)
                 .enableDoubletap(true)
