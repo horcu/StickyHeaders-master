@@ -1,15 +1,19 @@
 package org.zakariya.stickyheadersapp.ui;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.zakariya.stickyheadersapp.R;
 import org.zakariya.stickyheadersapp.custom.constants;
+import org.zakariya.stickyheadersapp.model.Lesson;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import eu.fiskur.syntaxview.SyntaxView;
 
@@ -33,18 +37,40 @@ public class CodeView extends AppCompatActivity {
             }
         });
 
+        fab.hide();
+        Lesson lesson = null;
         String code = "No code for this section";
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            code = extras.getString(constants.CODE);
+            lesson = (Lesson) extras.get(constants.LESSON);
         }
 
-        SyntaxView syntaxView = (SyntaxView) findViewById(R.id.syntaxview);
+        final SyntaxView syntaxView = (SyntaxView) findViewById(R.id.syntaxview);
 
-        String[] themes = syntaxView.themes();
+        final String[] themes = syntaxView.themes();
+        int rand = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            rand = ThreadLocalRandom.current().nextInt(0, themes.length);
+        }
 
         syntaxView.setLoadingColor(Color.parseColor("#83BA30"));
-        syntaxView.loadString(code, "java", "railscasts");
+        final String themeName = themes[rand];
+        syntaxView.loadString(lesson == null ? code : lesson.getSolution(), "java", themeName);
+        final Snackbar snack =  Snackbar.make(fab, "this theme is called: " + themeName, Snackbar.LENGTH_INDEFINITE);
+                snack.setAction("random", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            int randx = ThreadLocalRandom.current().nextInt(0, themes.length);
+                            String theme = themes[randx];
+                            syntaxView.setTheme(theme);
+                            snack.setText( "this theme is called: " + theme);
+                        }
+
+                    }
+                });
+
+        snack.show();
     }
 
 }

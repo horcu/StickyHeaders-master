@@ -45,6 +45,9 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'com.github.barteksc:android-pdf-viewer:1.1.1'
     compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.google.firebase:firebase-database:9.0.2'
     testCompile 'junit:junit:4.12'
     compile project(path: ':commonlib')
 }
+
+apply plugin: 'com.google.gms.google-services'

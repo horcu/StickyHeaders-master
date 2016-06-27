@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheadersapp.R;
+import org.zakariya.stickyheadersapp.custom.constants;
 
 /**
  * Base activity for StickyHeadersApp demos
@@ -38,7 +39,13 @@ public class DemoActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
+		String topLevelFolder = null;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			topLevelFolder = (String) extras.get(constants.FOLDER);
+		}
 		if (toolbar != null) {
+			toolbar.setTitle(topLevelFolder);
 			toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

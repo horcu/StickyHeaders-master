@@ -17,7 +17,7 @@
 		android:paddingEnd="16dp"
 		android:paddingStart="16dp"
 		tools:text="Medium Text"
-		android:textAllCaps="true"
+		android:fontFamily="sans-serif-smallcaps"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="@color/colorAccent"
 		/>

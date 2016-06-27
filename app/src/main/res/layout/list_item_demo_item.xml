@@ -17,7 +17,8 @@
 		android:layout_height="wrap_content"
 		android:paddingLeft="@dimen/activity_horizontal_margin"
 		android:paddingRight="@dimen/activity_horizontal_margin"
-		style="@style/Base.TextAppearance.AppCompat.Headline"
+		android:fontFamily="sans-serif-condensed"
+		android:textSize="17sp"
 		android:paddingTop="16dp"
 		/>
 
@@ -25,7 +26,7 @@
 		android:id="@+id/descriptionTextView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		style="@style/Base.TextAppearance.AppCompat.Body1"
+		android:fontFamily="sans-serif-condensed"
 		android:paddingLeft="@dimen/activity_horizontal_margin"
 		android:paddingRight="@dimen/activity_horizontal_margin"
 		android:textColor="@color/textMedium"/>
