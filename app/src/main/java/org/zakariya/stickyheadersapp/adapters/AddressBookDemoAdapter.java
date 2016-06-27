@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Adapter for Person items. Sorts them by last name into sections starting with the
+ * Adapter for Person lessons. Sorts them by last name into sections starting with the
  * first letter of the last name.
  */
 public class AddressBookDemoAdapter extends SectioningAdapter {

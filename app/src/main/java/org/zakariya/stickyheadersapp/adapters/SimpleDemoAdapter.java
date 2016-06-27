@@ -17,7 +17,6 @@ import org.zakariya.stickyheadersapp.R;
 import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.model.Lesson;
 import org.zakariya.stickyheadersapp.ui.CodeView;
-import org.zakariya.stickyheadersapp.ui.MainActivity;
 import org.zakariya.stickyheadersapp.ui.PdfView;
 
 import java.util.ArrayList;
@@ -37,8 +36,8 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 		int copyCount;
 		String header;
 		String footer;
-		ArrayList<Lesson> items = new ArrayList<>();
-
+		ArrayList<Section> sections = new ArrayList<>();
+		ArrayList<Lesson> lessons = new ArrayList<>();
 	}
 
 	public class ItemViewHolder extends SectioningAdapter.ItemViewHolder implements View.OnClickListener {
@@ -63,9 +62,11 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 			final int item = SimpleDemoAdapter.this.getPositionOfItemInSection(section, adapterPosition);
 
             Lesson lesson = GetLessonForSection(item, section);
-
+			ArrayList<Section> sections = GetSectionsForSection(section);
 			Intent intent = new Intent(v.getContext(), CodeView.class);
+
 			intent.putExtra(constants.CODE, lesson.getSolution());
+			intent.putExtra(constants.SECTIONS, sections);
 			(v.getContext()).startActivity(intent);
         }
 	}
@@ -73,8 +74,14 @@ public class SimpleDemoAdapter extends SectioningAdapter {
     private Lesson GetLessonForSection(int itemIndex, int sectIndex) {
 
         Section section = sections.get(sectIndex);
-        return section.items.get(itemIndex);
+        return section.lessons.get(itemIndex);
     }
+
+	private ArrayList<Section> GetSectionsForSection( int sectIndex) {
+
+		Section section = sections.get(sectIndex);
+		return section.sections;
+	}
 
     public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder implements View.OnClickListener {
 		TextView textView;
@@ -143,6 +150,10 @@ public class SimpleDemoAdapter extends SectioningAdapter {
          AddSections(sectionInfo);
 	}
 
+	public SimpleDemoAdapter(LinkedHashMap<String, ArrayList<Section>> sections) {
+		AddSections(sections, true);
+	}
+
     public void AddSections(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
         sections = null;
         sections = new ArrayList<>();
@@ -156,10 +167,28 @@ public class SimpleDemoAdapter extends SectioningAdapter {
             section.header = currentKey;
             section.footer = "End of : " + currentKey;
             section.index = i;
-            section.items.addAll(values.get(i));
+            section.lessons.addAll(values.get(i));
 			appendSection(i, section);
 		}
     }
+
+	public void AddSections(LinkedHashMap<String, ArrayList<Section>> sectionInfo, boolean hasChildren) {
+		sections = null;
+		sections = new ArrayList<>();
+		ArrayList<String> keys = new ArrayList<>(sectionInfo.keySet());
+		ArrayList<List<Section>> values = new ArrayList<List<Section>>(sectionInfo.values());
+
+		for (int i = 0; i < sectionInfo.keySet().size(); i++) {
+			String currentKey = keys.get(i);
+
+			Section section = new Section();
+			section.header = currentKey;
+			section.footer = "End of : " + currentKey;
+			section.index = i;
+			section.sections.addAll(values.get(i));
+			appendSection(i, section);
+		}
+	}
 
     void appendSection(int index,Section section) {
 		sections.add(index, section);
@@ -188,7 +217,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	void onDeleteItem(int sectionIndex, int itemIndex) {
 		Log.d(TAG, "onDeleteItem() called with: " + "sectionIndex = [" + sectionIndex + "], itemIndex = [" + itemIndex + "]");
 		Section s = sections.get(sectionIndex);
-		s.items.remove(itemIndex);
+		s.lessons.remove(itemIndex);
 		notifySectionItemRemoved(sectionIndex, itemIndex);
 	}
 
@@ -206,7 +235,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 
 	@Override
 	public int getNumberOfItemsInSection(int sectionIndex) {
-		return sections.get(sectionIndex).items.size();
+		return sections.get(sectionIndex).lessons.size();
 	}
 
 	@Override
@@ -245,7 +274,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	public void onBindItemViewHolder(SectioningAdapter.ItemViewHolder viewHolder, int sectionIndex, int itemIndex) {
 		Section s = sections.get(sectionIndex);
 		ItemViewHolder ivh = (ItemViewHolder) viewHolder;
-		ivh.textView.setText(s.items.get(itemIndex).getTopic());
+		ivh.textView.setText(s.lessons.get(itemIndex).getTopic());
 		ivh.adapterPositionTextView.setText(Integer.toString(getAdapterPositionForSectionItem(sectionIndex, itemIndex)));
 	}
 

@@ -8,4 +8,5 @@ public class constants {
 
 
     public static final java.lang.String CODE = "code";
+    public static final String SECTIONS = "sections";
 }

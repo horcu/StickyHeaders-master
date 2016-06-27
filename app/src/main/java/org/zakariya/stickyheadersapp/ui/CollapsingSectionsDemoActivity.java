@@ -51,7 +51,4 @@ public class CollapsingSectionsDemoActivity extends DemoActivity implements Asse
         adapter.notifyDataSetChanged();
         progressBar.setVisibility(View.GONE);
     }
-
-
-
 }
