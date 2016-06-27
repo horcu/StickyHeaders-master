@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ctci.Section;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,15 +36,6 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	public static final int TYPE_GHOST_HEADER = 1;
 	public static final int TYPE_ITEM = 2;
 	public static final int TYPE_FOOTER = 3;
-
-
-	private static class Section {
-		int adapterPosition;    // adapterPosition of first item (the header) of this sections
-		int numberOfItems;      // number of items (not including header or footer)
-		int length;             // total number of items in sections including header and footer
-		boolean hasHeader;      // if true, sections has a header
-		boolean hasFooter;      // if true, sections has a footer
-	}
 
 	private ArrayList<Section> sections;
 	private HashMap<Integer,Boolean> collapsedSections = new HashMap<>();
@@ -296,12 +289,12 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		}
 
 		Section section = this.sections.get(sectionIndex);
-		int localPosition = adapterPosition - section.adapterPosition;
-		if (localPosition > section.length) {
-			throw new IndexOutOfBoundsException("adapterPosition: " + adapterPosition + " is beyond sectionIndex: " + sectionIndex + " length: " + section.length);
+		int localPosition = adapterPosition - section.getAdapterPosition();
+		if (localPosition > section.getLessons().size()) {
+			throw new IndexOutOfBoundsException("adapterPosition: " + adapterPosition + " is beyond sectionIndex: " + sectionIndex + " length: " + section.getLessons().size());
 		}
 
-		if (section.hasHeader) {
+		if (section.isHasHeader()) {
 			// adjust for header and ghostHeader
 			localPosition -= 2;
 		}
@@ -330,7 +323,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		}
 
 		Section section = this.sections.get(sectionIndex);
-		int adapterPosition = section.adapterPosition;
+		int adapterPosition = section.getAdapterPosition();
 		return offsetIntoSection + adapterPosition;
 	}
 
@@ -387,8 +380,8 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 	public int getAdapterPositionForSectionFooter(int sectionIndex) {
 		if (doesSectionHaveFooter(sectionIndex)) {
 			Section section = this.sections.get(sectionIndex);
-			int adapterPosition = section.adapterPosition;
-			return adapterPosition + section.length - 1;
+			int adapterPosition = section.getAdapterPosition();
+			return adapterPosition + section.getNumberOfItems() - 1;
 		} else {
 			throw new InvalidParameterException("Section " + sectionIndex + " has no footer");
 		}
@@ -436,7 +429,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			buildSectionIndex();
 			Section section = this.sections.get(sectionIndex);
-			notifyItemRangeChanged(section.adapterPosition, section.length);
+			notifyItemRangeChanged(section.getAdapterPosition(), section.getNumberOfItems());
 		}
 	}
 
@@ -454,13 +447,13 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			buildSectionIndex();
 			Section section = this.sections.get(sectionIndex);
-			if (itemIndex >= section.numberOfItems) {
-				throw new IndexOutOfBoundsException("itemIndex adapterPosition: " + itemIndex + " exceeds sectionIndex numberOfItems: " + section.numberOfItems);
+			if (itemIndex >= section.getNumberOfItems()) {
+				throw new IndexOutOfBoundsException("itemIndex adapterPosition: " + itemIndex + " exceeds sectionIndex numberOfItems: " + section.getNumberOfItems());
 			}
-			if (section.hasHeader) {
+			if (section.isHasHeader()) {
 				itemIndex += 2;
 			}
-			notifyItemChanged(section.adapterPosition + itemIndex);
+			notifyItemChanged(section.getAdapterPosition() + itemIndex);
 		}
 	}
 
@@ -478,10 +471,10 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			buildSectionIndex();
 			Section section = this.sections.get(sectionIndex);
-			if (section.hasHeader) {
+			if (section.isHasHeader()) {
 				itemIndex += 2;
 			}
-			notifyItemInserted(section.adapterPosition + itemIndex);
+			notifyItemInserted(section.getAdapterPosition() + itemIndex);
 		}
 	}
 
@@ -499,10 +492,10 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			buildSectionIndex();
 			Section section = this.sections.get(sectionIndex);
-			if (section.hasHeader) {
+			if (section.isHasHeader()) {
 				itemIndex += 2;
 			}
-			notifyItemRemoved(section.adapterPosition + itemIndex);
+			notifyItemRemoved(section.getAdapterPosition() + itemIndex);
 		}
 	}
 
@@ -518,7 +511,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			buildSectionIndex();
 			Section section = this.sections.get(sectionIndex);
-			notifyItemRangeInserted(section.adapterPosition, section.length);
+			notifyItemRangeInserted(section.getAdapterPosition(), section.getNumberOfItems());
 		}
 	}
 
@@ -534,7 +527,7 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		} else {
 			Section section = this.sections.get(sectionIndex);
 			buildSectionIndex();
-			notifyItemRangeRemoved(section.adapterPosition, section.length);
+			notifyItemRangeRemoved(section.getAdapterPosition(), section.getNumberOfItems());
 		}
 	}
 
@@ -544,26 +537,29 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		int i = 0;
 		for (int s = 0, ns = getNumberOfSections(); s < ns; s++) {
 			Section section = new Section();
-			section.adapterPosition = i;
-			section.hasHeader = doesSectionHaveHeader(s);
-			section.hasFooter = doesSectionHaveFooter(s);
+			section.setAdapterPosition(i);
+			section.setHasHeader(doesSectionHaveHeader(s));
+			section.setHasFooter(doesSectionHaveFooter(s));
 
 			if (isSectionCollapsed(s)){
-				section.length = 0;
+				section.setNumberOfItems(0);
 			} else {
-				section.length = section.numberOfItems = getNumberOfItemsInSection(s);
+				section.setNumberOfItems(getNumberOfItemsInSection(s));
 			}
 
-			if (section.hasHeader) {
-				section.length += 2; // room for header and ghostHeader
+			if (section.isHasHeader()) {
+				int num = section.getNumberOfItems();
+				num+=2;
+				section.setNumberOfItems(num); // room for header and ghostHeader
 			}
-			if (section.hasFooter) {
-				section.length++;
+			if (section.isHasFooter()) {
+				int num = section.getNumberOfItems();
+				section.setNumberOfItems(num++);
 			}
 
 			this.sections.add(section);
 
-			i += section.length;
+			i += section.getNumberOfItems();
 		}
 
 		totalNumberOfItems = i;
@@ -572,11 +568,11 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 		sectionIndicesByAdapterPosition = new int[totalNumberOfItems];
 		for (int s = 0, ns = getNumberOfSections(); s < ns; s++) {
 			Section section = sections.get(s);
-			for (int p = 0; p < section.length; p++) {
+			for (int p = 0; p < section.getNumberOfItems(); p++) {
 				sectionIndicesByAdapterPosition[i+p] = s;
 			}
 
-			i += section.length;
+			i += section.getNumberOfItems();
 		}
 	}
 
@@ -602,19 +598,19 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 
 		int sectionIndex = getSectionForAdapterPosition(adapterPosition);
 		Section section = this.sections.get(sectionIndex);
-		int localPosition = adapterPosition - section.adapterPosition;
+		int localPosition = adapterPosition - section.getAdapterPosition();
 
-		if (section.hasHeader && section.hasFooter) {
+		if (section.isHasHeader() && section.isHasFooter()) {
 			if (localPosition == 0) {
 				return TYPE_HEADER;
 			} else if (localPosition == 1) {
 				return TYPE_GHOST_HEADER;
-			} else if (localPosition == section.length - 1) {
+			} else if (localPosition == section.getNumberOfItems() - 1) {
 				return TYPE_FOOTER;
 			} else {
 				return TYPE_ITEM;
 			}
-		} else if (section.hasHeader) {
+		} else if (section.isHasHeader()) {
 			if (localPosition == 0) {
 				return TYPE_HEADER;
 			} else if (localPosition == 1) {
@@ -622,8 +618,8 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 			} else {
 				return TYPE_ITEM;
 			}
-		} else if (section.hasFooter) {
-			if (localPosition == section.length - 1) {
+		} else if (section.isHasFooter()) {
+			if (localPosition == section.getNumberOfItems() - 1) {
 				return TYPE_FOOTER;
 			} else {
 				return TYPE_ITEM;

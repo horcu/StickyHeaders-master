@@ -1,4 +1,4 @@
-package org.zakariya.stickyheadersapp.model;
+package com.ctci;
 
 /**
  * Created by hcummings on 6/22/2016.

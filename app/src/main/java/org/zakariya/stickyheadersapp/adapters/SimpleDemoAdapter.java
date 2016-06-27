@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.ctci.Lesson;
+import com.ctci.Section;
+
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheadersapp.R;
 import org.zakariya.stickyheadersapp.custom.constants;
-import org.zakariya.stickyheadersapp.model.Lesson;
 import org.zakariya.stickyheadersapp.ui.CodeView;
 import org.zakariya.stickyheadersapp.ui.PdfView;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,14 +32,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	static final String TAG = SimpleDemoAdapter.class.getSimpleName();
 	static final boolean USE_DEBUG_APPEARANCE = false;
 
-	public class Section {
-		int index;
-		int copyCount;
-		String header;
-		String footer;
-		ArrayList<Section> sections = new ArrayList<>();
-		ArrayList<Lesson> lessons = new ArrayList<>();
-	}
+
 
 	public class ItemViewHolder extends SectioningAdapter.ItemViewHolder implements View.OnClickListener {
 		TextView textView;
@@ -74,13 +68,13 @@ public class SimpleDemoAdapter extends SectioningAdapter {
     private Lesson GetLessonForSection(int itemIndex, int sectIndex) {
 
         Section section = sections.get(sectIndex);
-        return section.lessons.get(itemIndex);
+        return section.getLessons().get(itemIndex);
     }
 
 	private ArrayList<Section> GetSectionsForSection( int sectIndex) {
 
 		Section section = sections.get(sectIndex);
-		return section.sections;
+		return section.getSections();
 	}
 
     public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder implements View.OnClickListener {
@@ -164,10 +158,10 @@ public class SimpleDemoAdapter extends SectioningAdapter {
             String currentKey = keys.get(i);
 
             Section section = new Section();
-            section.header = currentKey;
-            section.footer = "End of : " + currentKey;
-            section.index = i;
-            section.lessons.addAll(values.get(i));
+            section.setHeader(currentKey);
+            section.setFooter("End of : " + currentKey);
+            section.setIndex(i);
+            section.getLessons().addAll(values.get(i));
 			appendSection(i, section);
 		}
     }
@@ -182,10 +176,10 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 			String currentKey = keys.get(i);
 
 			Section section = new Section();
-			section.header = currentKey;
-			section.footer = "End of : " + currentKey;
-			section.index = i;
-			section.sections.addAll(values.get(i));
+			section.setHeader(currentKey);
+			section.setFooter("End of : " + currentKey);
+			section.setIndex(i);
+			section.getSections().addAll(values.get(i));
 			appendSection(i, section);
 		}
 	}
@@ -217,7 +211,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	void onDeleteItem(int sectionIndex, int itemIndex) {
 		Log.d(TAG, "onDeleteItem() called with: " + "sectionIndex = [" + sectionIndex + "], itemIndex = [" + itemIndex + "]");
 		Section s = sections.get(sectionIndex);
-		s.lessons.remove(itemIndex);
+		s.getLessons().remove(itemIndex);
 		notifySectionItemRemoved(sectionIndex, itemIndex);
 	}
 
@@ -235,17 +229,17 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 
 	@Override
 	public int getNumberOfItemsInSection(int sectionIndex) {
-		return sections.get(sectionIndex).lessons.size();
+		return sections.get(sectionIndex).getLessons().size();
 	}
 
 	@Override
 	public boolean doesSectionHaveHeader(int sectionIndex) {
-		return !TextUtils.isEmpty(sections.get(sectionIndex).header);
+		return !TextUtils.isEmpty(sections.get(sectionIndex).getHeader());
 	}
 
 	@Override
 	public boolean doesSectionHaveFooter(int sectionIndex) {
-		return !TextUtils.isEmpty(sections.get(sectionIndex).footer);
+		return !TextUtils.isEmpty(sections.get(sectionIndex).getFooter());
 	}
 
 	@Override
@@ -274,7 +268,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	public void onBindItemViewHolder(SectioningAdapter.ItemViewHolder viewHolder, int sectionIndex, int itemIndex) {
 		Section s = sections.get(sectionIndex);
 		ItemViewHolder ivh = (ItemViewHolder) viewHolder;
-		ivh.textView.setText(s.lessons.get(itemIndex).getTopic());
+		ivh.textView.setText(s.getLessons().get(itemIndex).getTopic());
 		ivh.adapterPositionTextView.setText(Integer.toString(getAdapterPositionForSectionItem(sectionIndex, itemIndex)));
 	}
 
@@ -286,10 +280,10 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 		hvh.adapterPositionTextView.setText(Integer.toString(getAdapterPositionForSectionHeader(sectionIndex)));
 
 		if (USE_DEBUG_APPEARANCE) {
-			hvh.textView.setText(pad(sectionIndex * 2) + s.header);
+			hvh.textView.setText(pad(sectionIndex * 2) + s.getHeader());
 			viewHolder.itemView.setBackgroundColor(0x55FF9999);
 		} else {
-			hvh.textView.setText(s.header);
+			hvh.textView.setText(s.getHeader());
 		}
 
 		hvh.updateSectionCollapseToggle(isSectionCollapsed(sectionIndex));
@@ -307,7 +301,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	public void onBindFooterViewHolder(SectioningAdapter.FooterViewHolder viewHolder, int sectionIndex) {
 		Section s = sections.get(sectionIndex);
 		FooterViewHolder fvh = (FooterViewHolder) viewHolder;
-		fvh.textView.setText(s.footer);
+		fvh.textView.setText(s.getFooter());
 		fvh.adapterPositionTextView.setText(Integer.toString(getAdapterPositionForSectionFooter(sectionIndex)));
 	}
 

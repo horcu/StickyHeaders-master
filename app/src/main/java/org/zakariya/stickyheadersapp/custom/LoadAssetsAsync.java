@@ -3,8 +3,6 @@ package org.zakariya.stickyheadersapp.custom;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.lifeofcoding.cacheutlislibrary.CacheUtils;
-
 import org.zakariya.stickyheadersapp.api.AssetGetter;
 import org.zakariya.stickyheadersapp.model.Lesson;
 

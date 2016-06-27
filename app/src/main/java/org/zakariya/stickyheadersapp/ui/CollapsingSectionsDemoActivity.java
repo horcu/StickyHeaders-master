@@ -3,9 +3,6 @@ package org.zakariya.stickyheadersapp.ui;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.gson.reflect.TypeToken;
-import com.lifeofcoding.cacheutlislibrary.CacheUtils;
-
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
