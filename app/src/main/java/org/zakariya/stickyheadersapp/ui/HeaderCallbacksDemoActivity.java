@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.core.Lesson;
+
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
 import org.zakariya.stickyheadersapp.custom.cacheController;
-import org.zakariya.stickyheadersapp.model.Lesson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 
 /**
  * Demonstrates use of StickyHeaderLayoutManager::setHeaderPositionChangedCallback

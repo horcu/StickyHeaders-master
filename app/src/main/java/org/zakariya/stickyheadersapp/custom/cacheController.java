@@ -1,12 +1,12 @@
 package org.zakariya.stickyheadersapp.custom;
 
+import com.example.core.Lesson;
 import com.google.gson.reflect.TypeToken;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
-import org.zakariya.stickyheadersapp.model.Lesson;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 
 /**
  * Created by Horatio on 6/24/2016.

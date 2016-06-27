@@ -1,1 +1,1 @@
-include ':app', ':stickyheaders', ':commonlib'
+include ':app', ':stickyheaders', ':core'

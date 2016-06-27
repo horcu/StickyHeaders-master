@@ -1,6 +1,7 @@
 package org.zakariya.stickyheadersapp.custom;
 
-import org.zakariya.stickyheadersapp.model.Lesson;
+
+import com.example.core.Lesson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

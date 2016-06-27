@@ -9,10 +9,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 
 
+import com.example.core.Lesson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-import org.zakariya.stickyheadersapp.model.Lesson;
 
 import java.io.File;
 import java.io.IOException;

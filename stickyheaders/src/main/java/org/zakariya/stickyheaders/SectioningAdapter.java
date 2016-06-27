@@ -1,16 +1,16 @@
 package org.zakariya.stickyheaders;
 
+
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ctci.Section;
+
+import com.example.core.Section;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * SectioningAdapter
@@ -290,8 +290,8 @@ public class SectioningAdapter extends RecyclerView.Adapter<SectioningAdapter.Vi
 
 		Section section = this.sections.get(sectionIndex);
 		int localPosition = adapterPosition - section.getAdapterPosition();
-		if (localPosition > section.getLessons().size()) {
-			throw new IndexOutOfBoundsException("adapterPosition: " + adapterPosition + " is beyond sectionIndex: " + sectionIndex + " length: " + section.getLessons().size());
+		if (localPosition > section.getNumberOfItems()) {
+			throw new IndexOutOfBoundsException("adapterPosition: " + adapterPosition + " is beyond sectionIndex: " + sectionIndex + " length: " + section.getNumberOfItems());
 		}
 
 		if (section.isHasHeader()) {

@@ -3,8 +3,9 @@ package org.zakariya.stickyheadersapp.custom;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.core.Lesson;
+
 import org.zakariya.stickyheadersapp.api.AssetGetter;
-import org.zakariya.stickyheadersapp.model.Lesson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

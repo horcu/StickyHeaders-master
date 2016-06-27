@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.core.Lesson;
+
 import org.zakariya.stickyheadersapp.R;
 import org.zakariya.stickyheadersapp.custom.constants;
-import org.zakariya.stickyheadersapp.model.Lesson;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import eu.fiskur.syntaxview.SyntaxView;

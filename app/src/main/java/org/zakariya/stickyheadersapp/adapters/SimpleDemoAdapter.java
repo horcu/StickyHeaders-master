@@ -3,6 +3,7 @@ package org.zakariya.stickyheadersapp.adapters;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.DrawableRes;
+
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.ctci.Lesson;
-import com.ctci.Section;
+import com.example.core.Lesson;
+import com.example.core.Section;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheadersapp.R;

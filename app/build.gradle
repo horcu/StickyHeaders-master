@@ -47,7 +47,7 @@ dependencies {
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.google.firebase:firebase-database:9.0.2'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':commonlib')
+    compile project(path: ':core')
 }
 
 apply plugin: 'com.google.gms.google-services'

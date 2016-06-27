@@ -1,4 +1,5 @@
-package com.ctci;
+package com.example.core;
+
 
 import android.os.Parcel;
 import android.os.Parcelable;

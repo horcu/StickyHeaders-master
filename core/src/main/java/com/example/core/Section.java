@@ -1,8 +1,8 @@
-package com.ctci;
+package com.example.core;
 
 import java.util.ArrayList;
 
-public class Section {
+public class Section implements android.os.Parcelable {
 	private int adapterPosition;    // adapterPosition of first item (the header) of this sections
 	private int numberOfItems;      // number of items (not including header or footer)
 	private int length;             // total number of items in sections including header and footer
@@ -116,4 +116,52 @@ public class Section {
     public void setLessons(ArrayList<Lesson> lessons) {
         this.lessons = lessons;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeInt(this.adapterPosition);
+        dest.writeInt(this.numberOfItems);
+        dest.writeInt(this.length);
+        dest.writeByte(this.hasHeader ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.hasFooter ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.index);
+        dest.writeInt(this.copyCount);
+        dest.writeString(this.header);
+        dest.writeString(this.footer);
+        dest.writeList(this.sections);
+        dest.writeList(this.lessons);
+    }
+
+    protected Section(android.os.Parcel in) {
+        this.adapterPosition = in.readInt();
+        this.numberOfItems = in.readInt();
+        this.length = in.readInt();
+        this.hasHeader = in.readByte() != 0;
+        this.hasFooter = in.readByte() != 0;
+        this.index = in.readInt();
+        this.copyCount = in.readInt();
+        this.header = in.readString();
+        this.footer = in.readString();
+        this.sections = new ArrayList<Section>();
+        in.readList(this.sections, Section.class.getClassLoader());
+        this.lessons = new ArrayList<Lesson>();
+        in.readList(this.lessons, Lesson.class.getClassLoader());
+    }
+
+    public static final android.os.Parcelable.Creator<Section> CREATOR = new android.os.Parcelable.Creator<Section>() {
+        @Override
+        public Section createFromParcel(android.os.Parcel source) {
+            return new Section(source);
+        }
+
+        @Override
+        public Section[] newArray(int size) {
+            return new Section[size];
+        }
+    };
 }

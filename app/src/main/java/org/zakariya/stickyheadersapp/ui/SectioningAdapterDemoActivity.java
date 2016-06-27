@@ -3,13 +3,15 @@ package org.zakariya.stickyheadersapp.ui;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.example.core.Lesson;
+
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
 import org.zakariya.stickyheadersapp.custom.cacheController;
-import org.zakariya.stickyheadersapp.model.Lesson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 
 /**
  * Created by shamyl on 4/26/16.
