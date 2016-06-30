@@ -12,15 +12,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.example.core.Chapter;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheadersapp.R;
+import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
 import org.zakariya.stickyheadersapp.custom.constants;
+
+import java.util.ArrayList;
 
 /**
  * Base activity for StickyHeadersApp demos
  */
-public class DemoActivity extends AppCompatActivity {
+public class DemoActivity extends AppCompatActivity  {
 
 	private static final String TAG = DemoActivity.class.getSimpleName();
 	private static final String STATE_SCROLL_POSITION = "DemoActivity.STATE_SCROLL_POSITION";
@@ -53,9 +59,8 @@ public class DemoActivity extends AppCompatActivity {
 				}
 			});
 		}
-
-
 	}
+
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

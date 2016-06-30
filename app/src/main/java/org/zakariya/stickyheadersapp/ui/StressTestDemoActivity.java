@@ -2,6 +2,7 @@ package org.zakariya.stickyheadersapp.ui;
 
 import android.os.Bundle;
 
+import com.example.core.Chapter;
 import com.example.core.Lesson;
 
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
@@ -27,6 +28,6 @@ public class StressTestDemoActivity extends DemoActivity {
             sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
             cacheController.WriteToCache(topLevelFolder, sections);
         }
-		recyclerView.setAdapter(new SimpleDemoAdapter(sections, false, false, false));
+		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Chapter>(), false, false, false));
 	}
 }

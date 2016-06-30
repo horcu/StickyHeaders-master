@@ -20,13 +20,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.core.Chapter;
 
 import org.zakariya.stickyheaders.SectioningAdapter;
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.R;
-import org.zakariya.stickyheadersapp.adapters.DemoAdapter;
-import org.zakariya.stickyheadersapp.api.ItemClickListener;
+import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
+import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.model.DemoModel;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,11 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+       // getActionBar().hide();
 
-		toolbar.setTitle("Cracking the Code Interview");
-		toolbar.setSubtitle("by Gayle Laakmann McDowell");
-        toolbar.setTitleTextColor(Color.parseColor("#444444"));
-        toolbar.setSubtitleTextColor(Color.parseColor("#666666"));
+        toolbar.setVisibility(View.GONE);
+//		toolbar.setTitle("Cracking the Code Interview");
+//		toolbar.setSubtitle("by Gayle Laakmann McDowell");
+//        toolbar.setTitleTextColor(Color.parseColor("#444444"));
+//        toolbar.setSubtitleTextColor(Color.parseColor("#666666"));
 		tabs = (TabLayout) findViewById(R.id.tabs);
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 		viewPager.setAdapter(new MainActivityViewsPager(getSupportFragmentManager()));
@@ -68,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	class MainActivityViewsPager extends FragmentPagerAdapter {
+
+
+    class MainActivityViewsPager extends FragmentPagerAdapter {
 
 		public MainActivityViewsPager(FragmentManager fm) {
 			super(fm);
@@ -132,32 +142,43 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		void setupDemoRecyclerView() {
-			DemoModel[] demos = {
-					new DemoModel(getString(R.string.demo_list_item_addressbook_title),
-							getString(R.string.demo_list_item_addressbook_description),
-							AddressBookDemoActivity.class),
+
+           // String[] sections = AssetGetter.getSectionNames(getContext(), "CTCI");
+            String[] chapterNames = {"Arrays and Strings", "Linked Lists", "Big O" };
+            DemoModel[] demos = new DemoModel[chapterNames.length];
+            for (int i = 0; i < chapterNames.length; i++) {
+                String folderName = chapterNames[i];
+                demos[i] = new DemoModel(folderName, "",CollapsingSectionsDemoActivity.class);
+            }
+
+//            {
+//					new DemoModel(getString(R.string.demo_list_item_addressbook_title),
+//							getString(R.string.demo_list_item_addressbook_description),
+//							AddressBookDemoActivity.class),
+////
+////					new DemoModel(getString(R.string.demo_list_item_callbacks_title),
+////							getString(R.string.demo_list_item_callbacks_description),
+////							HeaderCallbacksDemoActivity.class),
 //
-//					new DemoModel(getString(R.string.demo_list_item_callbacks_title),
-//							getString(R.string.demo_list_item_callbacks_description),
-//							HeaderCallbacksDemoActivity.class),
-
-					new DemoModel(getString(R.string.demo_list_item_collapsing_headers_title),
-							getString(R.string.demo_list_item_collapsing_headers_description),
-							CollapsingSectionsDemoActivity.class)
-
+//					new DemoModel(getString(R.string.demo_list_item_collapsing_headers_title),
+//							getString(R.string.demo_list_item_collapsing_headers_description),
+//							CollapsingSectionsDemoActivity.class),
+//
 //					new DemoModel(getString(R.string.demo_list_item_stress_test_title),
 //							getString(R.string.demo_list_item_stress_test_description),
 //							StressTestDemoActivity.class),
-
+//
 //					new DemoModel(getString(R.string.demo_list_item_sections_title),
 //							getString(R.string.demo_list_item_sections_description),
-//							SectioningAdapterDemoActivity.class)
-			};
+//							SectioningAdapterDemoActivity.class);
+//			};
 
 			recyclerView.setAdapter(new DemoAdapter(getContext(), demos, new ItemClickListener() {
 				@Override
 				public void onItemClick(DemoModel demoModel) {
-					startActivity(new Intent(getActivity(), demoModel.getActivityClass()));
+                    Intent intent = new Intent(getContext(),demoModel.getActivityClass());
+                   intent.putExtra(constants.FOLDER, demoModel.getTitle());
+					startActivity(intent);
 				}
 			}));
 			recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
@@ -165,9 +186,95 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+		private interface ItemClickListener {
+			void onItemClick(DemoModel demoModel);
+		}
 
+		private static class DemoAdapter extends SectioningAdapter {
 
+			public class HeaderViewHolder extends SectioningAdapter.HeaderViewHolder {
+				TextView titleTextView;
 
+				public HeaderViewHolder(View itemView) {
+					super(itemView);
+					titleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
+				}
+			}
+
+			public class ItemViewHolder extends SectioningAdapter.ItemViewHolder {
+				TextView titleTextView;
+				TextView descriptionTextView;
+
+				public ItemViewHolder(View itemView) {
+					super(itemView);
+					titleTextView = (TextView) itemView.findViewById(R.id.titleTextView);
+					descriptionTextView = (TextView) itemView.findViewById(R.id.descriptionTextView);
+				}
+			}
+
+			Context context;
+			DemoModel[] demos;
+			ItemClickListener itemClickListener;
+
+			public DemoAdapter(Context context, DemoModel[] demos, ItemClickListener itemClickListener) {
+				this.context = context;
+				this.demos = demos;
+				this.itemClickListener = itemClickListener;
+			}
+
+			@Override
+			public int getNumberOfSections() {
+				return 1;
+			}
+
+			@Override
+			public int getNumberOfItemsInSection(int sectionIndex) {
+				return demos.length;
+			}
+
+			@Override
+			public boolean doesSectionHaveHeader(int sectionIndex) {
+				return true;
+			}
+
+			@Override
+			public SectioningAdapter.HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+				LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+				View v = inflater.inflate(R.layout.list_item_demo_header, parent, false);
+				return new HeaderViewHolder(v);
+			}
+
+			@Override
+			public SectioningAdapter.ItemViewHolder onCreateItemViewHolder(ViewGroup parent) {
+				LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+				View v = inflater.inflate(R.layout.list_item_demo_item, parent, false);
+				return new ItemViewHolder(v);
+			}
+
+			@Override
+			public void onBindHeaderViewHolder(SectioningAdapter.HeaderViewHolder viewHolder, int sectionIndex) {
+				HeaderViewHolder hvh = (HeaderViewHolder) viewHolder;
+                hvh.titleTextView.setTextSize(16f);
+                hvh.titleTextView.setTextColor(Color.parseColor("#555555"));
+				hvh.titleTextView.setText(context.getString(R.string.chapters));
+			}
+
+			@Override
+			public void onBindItemViewHolder(SectioningAdapter.ItemViewHolder viewHolder, int sectionIndex, int itemIndex) {
+				ItemViewHolder ivh = (ItemViewHolder) viewHolder;
+
+				final DemoModel dm = demos[itemIndex];
+				ivh.titleTextView.setText(dm.getTitle());
+				ivh.descriptionTextView.setText(dm.getDescription());
+
+				ivh.itemView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						itemClickListener.onItemClick(dm);
+					}
+				});
+			}
+		}
 
 	}
 

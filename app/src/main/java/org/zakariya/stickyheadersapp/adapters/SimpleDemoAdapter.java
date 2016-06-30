@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.core.Chapter;
 import com.example.core.Lesson;
 import com.example.core.Section;
 
@@ -22,6 +23,7 @@ import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.ui.CodeView;
 import org.zakariya.stickyheadersapp.ui.PdfView;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -137,7 +139,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	boolean showCollapsingSectionControls;
 	boolean showAdapterPositions;
 
-	public SimpleDemoAdapter(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
+	public SimpleDemoAdapter(ArrayList<Chapter> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
 		this.showModificationControls = showModificationControls;
 		this.showCollapsingSectionControls = showCollapsingSectionControls;
 		this.showAdapterPositions = showAdapterPositions;
@@ -145,24 +147,16 @@ public class SimpleDemoAdapter extends SectioningAdapter {
          AddSections(sectionInfo);
 	}
 
-	public SimpleDemoAdapter(LinkedHashMap<String, ArrayList<Section>> sections) {
-		AddSections(sections, true);
-	}
-
-    public void AddSections(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
+    public void AddSections(ArrayList<Chapter> sectionInfo) {
         sections = null;
         sections = new ArrayList<>();
-        ArrayList<String> keys = new ArrayList<>(sectionInfo.keySet());
-        ArrayList<List<Lesson>> values = new ArrayList<List<Lesson>>(sectionInfo.values());
 
-        for (int i = 0; i < sectionInfo.keySet().size(); i++) {
-            String currentKey = keys.get(i);
-
+        for (int i = 0; i < sectionInfo.size(); i++) {
             Section section = new Section();
-            section.setHeader(currentKey);
-            section.setFooter("End of : " + currentKey);
+            section.setHeader(sectionInfo.get(i).getName());
+            section.setFooter("End of : " + sectionInfo.get(i).getName());
             section.setIndex(i);
-            section.getLessons().addAll(values.get(i));
+            Collections.addAll(section.getLessons(), sectionInfo.get(i).getLessons());
 			appendSection(i, section);
 		}
     }

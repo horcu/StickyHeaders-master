@@ -3,6 +3,7 @@ package org.zakariya.stickyheadersapp.ui;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.example.core.Chapter;
 import com.example.core.Lesson;
 
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
@@ -30,6 +31,6 @@ public class SectioningAdapterDemoActivity extends DemoActivity {
             sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
             cacheController.WriteToCache(topLevelFolder, sections);
         }
-		recyclerView.setAdapter(new SimpleDemoAdapter(sections, false, false, false));
+		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Chapter>(), false, false, false));
 	}
 }

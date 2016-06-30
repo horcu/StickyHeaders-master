@@ -1,43 +1,39 @@
 package org.zakariya.stickyheadersapp.custom;
-
-import android.content.Context;
 import android.os.AsyncTask;
 
-import com.example.core.Lesson;
+import com.example.core.Chapter;
 
-import org.zakariya.stickyheadersapp.api.AssetGetter;
+import org.zakariya.stickyheadersapp.model.DemoModel;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
-
-public class LoadAssetsAsync extends AsyncTask<Void, Void, LinkedHashMap<String, ArrayList<Lesson>>> {
+public class LoadAssetsAsync extends AsyncTask<Void, Void, ArrayList<Chapter>> {
 
     String folder = null;
-    private AssetsLoaded delegate;
+    private SectionsLoaded delegate;
 
-    public LoadAssetsAsync(AssetsLoaded delegate, String folder) {
+    public LoadAssetsAsync(SectionsLoaded delegate, String folder) {
         this.folder = folder;
         this.delegate = delegate;
     }
 
     @Override
-    protected LinkedHashMap<String, ArrayList<Lesson>> doInBackground(Void... voids) {
+    protected ArrayList<Chapter> doInBackground(Void... voids) {
 
         // Object records = GetFromCache(this.folder);
         //  if(records == null){
 
         //get
-        LinkedHashMap<String, ArrayList<Lesson>> records = AssetGetter.GetLessonsAssets((Context) this.delegate, this.folder);
+     //   MainActivity.MainPageFragment.DemoModel[] records = AssetGetter.GetLessonsAssets((Context) this.delegate, this.folder);
         //add to cache
         //     CacheUtils.writeObjectFile(this.folder, records );
         // }
-        return records;
+        return null;// records;
     }
 
     @Override
-    protected void onPostExecute(LinkedHashMap<String, ArrayList<Lesson>> sectionInfo) {
-        delegate.onAssetsLoadingCompleted(sectionInfo);
+    protected void onPostExecute(ArrayList<Chapter> chapters) {
+        delegate.onsectionsLoaded(chapters);
 
     }
 

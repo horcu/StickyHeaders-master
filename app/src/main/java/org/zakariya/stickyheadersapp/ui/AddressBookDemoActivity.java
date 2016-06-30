@@ -7,8 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
+import org.zakariya.stickyheadersapp.CTCIApplication;
 import org.zakariya.stickyheadersapp.R;
-import org.zakariya.stickyheadersapp.StickyHeadersDemoApp;
 import org.zakariya.stickyheadersapp.adapters.AddressBookDemoAdapter;
 import org.zakariya.stickyheadersapp.api.RandomUserLoader;
 import org.zakariya.stickyheadersapp.model.Person;
@@ -73,6 +73,6 @@ public class AddressBookDemoActivity extends DemoActivity implements RandomUserL
 	}
 
 	private RandomUserLoader getRandomUserLoader() {
-		return ((StickyHeadersDemoApp) getApplicationContext()).getRandomUserLoader();
+		return ((CTCIApplication) getApplicationContext()).getRandomUserLoader();
 	}
 }

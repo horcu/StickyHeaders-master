@@ -4,6 +4,8 @@ package com.example.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+
 /**
  * Created by hcummings on 6/22/2016.
  */
@@ -34,6 +36,8 @@ public class Lesson implements Parcelable {
         Topic = topic;
         Chapter = chapter;
     }
+
+    public Lesson(HashMap<String, HashMap.Entry> map){}
 
     public String getId() {
         return Id;
