@@ -2,7 +2,6 @@ package org.zakariya.stickyheadersapp.api;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -17,21 +16,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.internal.ObjectConstructor;
 import com.google.gson.reflect.TypeToken;
 
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
-import org.zakariya.stickyheadersapp.model.DemoModel;
-import org.zakariya.stickyheadersapp.ui.CollapsingSectionsDemoActivity;
-import org.zakariya.stickyheadersapp.ui.MainActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,11 +28,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
-import static java.util.HashMap.*;
+import static java.util.HashMap.Entry;
 
 /**
  * Created by hcummings on 6/23/2016.
@@ -178,7 +165,8 @@ public class AssetGetter {
     public static void ListChapters(final Activity context, String folder) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Query allChapters = mDatabase.child(folder);
+        String path = "ctci/" + folder;
+        Query allChapters = mDatabase.child(path);
         allChapters.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -200,37 +188,58 @@ public class AssetGetter {
                             Entry  section = (Entry) subFolders.entrySet().toArray()[j];
                             //todo build out section data
                             Section sect = new Section();
+                            sect.setAdapterPosition(j);
 
-                            ArrayList<Lesson> lessons = new ArrayList<Lesson>();
+                            ArrayList<Lesson> lessons = new ArrayList<>();
                             HashMap<String, Map.Entry> files = (HashMap<String, HashMap.Entry>)(section).getValue();
-                           for(int k=0; k < files.size(); k++){
-                               String t = (String) files.keySet().toArray()[k];
-                               HashMap.Entry<String, HashMap> jsonfile = (HashMap.Entry)files.entrySet().toArray()[k];
-                               HashMap mMap = jsonfile.getValue();
-                               //get the solution from the json hashmap
-                               String solution = (String) mMap.get("Solution");
 
-                               // get the topic
-                               String topic = (String)mMap.get("Topic");
+                            //todo handle the scenario where there are lessons at this level
+                            if(ThereAreNoSubFolders(files)){
+                                //that means that the
+                                String lessonTitle = files.entrySet().toArray()[0].toString();
+                                String lessonTopic = files.entrySet().toArray()[3].toString();
+                                String solution = files.entrySet().toArray()[4].toString();
+                                String chapter = files.entrySet().toArray()[0].toString();
 
-                               //get chapter
-                               String chapter = (String)mMap.get("Chapter");
+                                Lesson lesson = new Lesson(lessonTitle, lessonTitle, solution, lessonTopic, chapter);
+                                lessons.add(lesson);
 
-                               // build out lesson data
-                               Lesson lesson = new Lesson(t,t,solution, topic, chapter);
+                                sect.setHeader(lessonTopic);
+                                sect.setFooter(String.format("End of :%s", lessonTopic));
 
-                               // add lesson to lessons
-                               lessons.add(lesson);
+                                sect.getLessons().add(lesson);
+                            }
+                            else {
+                                //todo Handle the scenario where there are sub folders
+                                for (int k = 0; k < files.size(); k++) {
+                                    String t = (String) files.keySet().toArray()[k];
+                                    HashMap.Entry<String, HashMap> jsonfile = (HashMap.Entry) files.entrySet().toArray()[k];
+                                    HashMap mMap = jsonfile.getValue();
+                                    //get the solution from the json hashmap
+                                    String solution = (String) mMap.get("Solution");
 
-                               //todo save lessons to section
-                               if(k ==0){
-                                   sect.setHeader(topic);
-                                   sect.setFooter(String.format("End of :%s", topic));
-                               }
+                                    // get the topic
+                                    String topic = (String) mMap.get("Topic");
 
-                               //set lessons
-                               sect.getLessons().add(lesson);
-                           }
+                                    //get chapter
+                                    String chapter = (String) mMap.get("Chapter");
+
+                                    // build out lesson data
+                                    Lesson lesson = new Lesson(t, t, solution, topic, chapter);
+
+                                    // add lesson to lessons
+                                    lessons.add(lesson);
+
+                                    //todo save lessons to section
+                                    if (k == 0) {
+                                        sect.setHeader(topic);
+                                        sect.setFooter(String.format("End of :%s", topic));
+                                    }
+
+                                    //set lessons
+                                    sect.getLessons().add(lesson);
+                                }
+                            }
 
                             // save section to section list
                             sections.add(sect);
@@ -256,6 +265,10 @@ public class AssetGetter {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private static boolean ThereAreNoSubFolders(HashMap<String, Entry> files) {
+        return files.keySet().toArray()[0].equals("Chapter");
     }
 
     private static String GetdescriptionFromSubFolderNames() {

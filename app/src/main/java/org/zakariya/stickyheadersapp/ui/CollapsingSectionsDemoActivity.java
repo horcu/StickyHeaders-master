@@ -74,11 +74,15 @@ public class CollapsingSectionsDemoActivity extends DemoActivity implements Sect
     @Override
     public void onsectionsLoaded(ArrayList<Chapter> chapters) {
 
-        adapter.AddSections(chapters);
-        adapter.notifyDataSetChanged();
+        adapter = new SimpleDemoAdapter(chapters, false, true, false);
+        recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
+        recyclerView.setAdapter(adapter);
 
-        for (int i =0; i < chapters.size(); i++){
-            Toast.makeText(this, chapters.get(i).getName(), Toast.LENGTH_LONG).show();
-        }
+        if(progressBar.getVisibility() != View.GONE)
+        progressBar.setVisibility(View.GONE);
+
+//        for (int i =0; i < chapters.size(); i++){
+//            Toast.makeText(this, chapters.get(i).getName(), Toast.LENGTH_LONG).show();
+//        }
     }
 }

@@ -23,6 +23,7 @@ import org.zakariya.stickyheadersapp.custom.constants;
 import org.zakariya.stickyheadersapp.ui.CodeView;
 import org.zakariya.stickyheadersapp.ui.PdfView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -142,7 +143,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	public SimpleDemoAdapter(ArrayList<Chapter> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
 		this.showModificationControls = showModificationControls;
 		this.showCollapsingSectionControls = showCollapsingSectionControls;
-		this.showAdapterPositions = showAdapterPositions;
+		this.showAdapterPositions = false;// showAdapterPositions;
 
          AddSections(sectionInfo);
 	}
@@ -156,7 +157,16 @@ public class SimpleDemoAdapter extends SectioningAdapter {
             section.setHeader(sectionInfo.get(i).getName());
             section.setFooter("End of : " + sectionInfo.get(i).getName());
             section.setIndex(i);
-            Collections.addAll(section.getLessons(), sectionInfo.get(i).getLessons());
+            section.setNumberOfItems(sectionInfo.get(i).getSections().size());
+
+			ArrayList<Section> lessonSections = sectionInfo.get(i).getSections();
+            ArrayList<Lesson> arrLessons = new ArrayList<>();
+            for (int j =0; j < lessonSections.size(); j++){
+                Lesson less = lessonSections.get(j).getLessons().get(0);
+                arrLessons.add(less);
+            }
+			section.setLessons(arrLessons);
+			section.setLessons(arrLessons);
 			appendSection(i, section);
 		}
     }

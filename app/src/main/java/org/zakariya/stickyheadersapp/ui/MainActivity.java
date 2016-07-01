@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity {
 		void setupDemoRecyclerView() {
 
            // String[] sections = AssetGetter.getSectionNames(getContext(), "CTCI");
-            String[] chapterNames = {"Arrays and Strings", "Linked Lists", "Big O" };
+            String[] chapterNames = {"Introduction", "Arrays and Strings", "Linked Lists", "Big O","Stacks and Queues","Trees and Graphs","Bit Manipulation","Math and Loginc Puzzles","Object-Oriented design",
+										"Recursion and Dynamic Programming","Scalability and Memory Limits", "Sorting and Searching", "Java","Threads and Locks", "Moderate","Hard","CtCILibrary"};
+
             DemoModel[] demos = new DemoModel[chapterNames.length];
             for (int i = 0; i < chapterNames.length; i++) {
                 String folderName = chapterNames[i];
