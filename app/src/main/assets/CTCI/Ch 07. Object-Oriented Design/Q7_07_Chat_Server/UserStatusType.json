@@ -1,1 +1,0 @@
-{"Id":"6c06ecde-d879-4e9b-8bc1-bbb7cc8aae49","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_07_Chat_Server;\r\n\r\npublic enum UserStatusType {\r\n\tOffline, Away, Idle, Available, Busy\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

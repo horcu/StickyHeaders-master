@@ -1,1 +1,0 @@
-{"Id":"e11ac13f-9ccf-4b07-8cc2-03fbff7c82fa","Topic":"Ch 04. Trees and Graphs","Question":"","Solution":"package Q4_05_Validate_BST;\r\n\r\npublic class IntWrapper {\r\n\tpublic IntWrapper(int m) {\r\n\t\tdata = m;\r\n\t}\r\n\tpublic int data;\r\n}\r\n","Chapter":"Ch 04. Trees and Graphs"}

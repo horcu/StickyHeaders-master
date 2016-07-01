@@ -1,1 +1,0 @@
-{"Id":"54c0784f-57f3-4e09-a1b9-fdcc4eb298bb","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_08_Othello;\r\n\r\npublic enum Color {\r\n\tWhite, Black\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

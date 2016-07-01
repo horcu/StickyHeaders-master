@@ -16,5 +16,5 @@ import java.util.LinkedHashMap;
  */
 
 public interface SectionsLoaded {
-    public void onsectionsLoaded(ArrayList<Chapter> sections);
+    public void onsectionsLoaded(ArrayList<Section> sections);
 }

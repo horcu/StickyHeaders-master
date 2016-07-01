@@ -1,1 +1,0 @@
-{"Id":"491d92f6-b197-4cbc-9ac2-f4ab56d108b1","Topic":"Ch 16. Moderate","Question":"","Solution":"package Q16_26_Calculator;\n\npublic enum Operator {\n\tADD, SUBTRACT, MULTIPLY, DIVIDE, BLANK\n}\n","Chapter":"Ch 16. Moderate"}

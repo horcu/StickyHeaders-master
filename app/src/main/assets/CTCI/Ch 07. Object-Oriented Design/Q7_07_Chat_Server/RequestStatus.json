@@ -1,1 +1,0 @@
-{"Id":"6ed1aab9-e59b-4aaf-8f67-f01881c63474","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_07_Chat_Server;\r\n\r\npublic enum RequestStatus {\r\n\tUnread, Read, Accepted, Rejected\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}

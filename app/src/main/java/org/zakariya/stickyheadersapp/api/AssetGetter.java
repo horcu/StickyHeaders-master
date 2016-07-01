@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.example.core.Chapter;
+import com.example.core.Directory;
 import com.example.core.Lesson;
 import com.example.core.Section;
 import com.google.firebase.database.DataSnapshot;
@@ -16,8 +17,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
@@ -28,7 +32,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
 import static java.util.HashMap.Entry;
 
@@ -164,100 +169,26 @@ public class AssetGetter {
 
     public static void ListChapters(final Activity context, String folder) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        String path = "ctci/" + folder;
-        Query allChapters = mDatabase.child(path);
+        Query allChapters = mDatabase.child("/directory/Cracking the Code/" + folder);
         allChapters.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<Chapter> Book = new ArrayList<>();
-                HashMap object = (HashMap) dataSnapshot.getValue();
-                for (int i=0; i< object.size(); i++){
-                    Object current = object.entrySet().toArray()[i];
-                    String title = object.keySet().toArray()[i].toString();
-                    String description = GetdescriptionFromSubFolderNames();
-
-                    try {
-                        HashMap<String,HashMap.Entry> subFolders;
-                        subFolders = (HashMap<String, HashMap.Entry>) ((Entry) current).getValue();
-
-                        ArrayList<Section> sections = new ArrayList<Section>();
-                        for (int j=0; j < subFolders.size() ; j++) {
-                            Entry  section = (Entry) subFolders.entrySet().toArray()[j];
-                            //todo build out section data
-                            Section sect = new Section();
-                            sect.setAdapterPosition(j);
-
-                            ArrayList<Lesson> lessons = new ArrayList<>();
-                            HashMap<String, Map.Entry> files = (HashMap<String, HashMap.Entry>)(section).getValue();
-
-                            //todo handle the scenario where there are lessons at this level
-                            if(ThereAreNoSubFolders(files)){
-                                //that means that the
-                                String lessonTitle = files.entrySet().toArray()[0].toString();
-                                String lessonTopic = files.entrySet().toArray()[3].toString();
-                                String solution = files.entrySet().toArray()[4].toString();
-                                String chapter = files.entrySet().toArray()[0].toString();
-
-                                Lesson lesson = new Lesson(lessonTitle, lessonTitle, solution, lessonTopic, chapter);
-                                lessons.add(lesson);
-
-                                sect.setHeader(lessonTopic);
-                                sect.setFooter(String.format("End of :%s", lessonTopic));
-
-                                sect.getLessons().add(lesson);
-                            }
-                            else {
-                                //todo Handle the scenario where there are sub folders
-                                for (int k = 0; k < files.size(); k++) {
-                                    String t = (String) files.keySet().toArray()[k];
-                                    HashMap.Entry<String, HashMap> jsonfile = (HashMap.Entry) files.entrySet().toArray()[k];
-                                    HashMap mMap = jsonfile.getValue();
-                                    //get the solution from the json hashmap
-                                    String solution = (String) mMap.get("Solution");
-
-                                    // get the topic
-                                    String topic = (String) mMap.get("Topic");
-
-                                    //get chapter
-                                    String chapter = (String) mMap.get("Chapter");
-
-                                    // build out lesson data
-                                    Lesson lesson = new Lesson(t, t, solution, topic, chapter);
-
-                                    // add lesson to lessons
-                                    lessons.add(lesson);
-
-                                    //todo save lessons to section
-                                    if (k == 0) {
-                                        sect.setHeader(topic);
-                                        sect.setFooter(String.format("End of :%s", topic));
-                                    }
-
-                                    //set lessons
-                                    sect.getLessons().add(lesson);
-                                }
-                            }
-
-                            // save section to section list
-                            sections.add(sect);
-                        }
-
-                        //save sections to chapter
-                        Chapter chapter = new Chapter(sections);
-                        chapter.setName(title);
-
-                        //add new chapter to book
-                        Book.add(chapter);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                ArrayList<Section> Book = null;
+                Object object = null;
+                try {
+                    object =  dataSnapshot.getValue();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                SectionsLoaded delegate = (SectionsLoaded) context;
+
+                Gson gson = new Gson();
+                String json = gson.toJson(object);
+                Book = BuildSectionAndLessonsFromJson(json);
 
                 //new data to the subscriber
+                SectionsLoaded delegate = (SectionsLoaded) context;
                 delegate.onsectionsLoaded(Book);
             }
 
@@ -267,76 +198,35 @@ public class AssetGetter {
         });
     }
 
-    private static boolean ThereAreNoSubFolders(HashMap<String, Entry> files) {
-        return files.keySet().toArray()[0].equals("Chapter");
+    private static ArrayList<Section> BuildSectionAndLessonsFromJson(String json) {
+
+        Gson gson = new Gson();
+        ArrayList<Section> results = new ArrayList<>();
+        JsonObject jObj = gson.fromJson(json,JsonObject.class);
+
+        JsonObject jArrayStr = jObj.getAsJsonObject("directory");
+
+        for (int i=0; i < jArrayStr.entrySet().size(); i++){
+            Set<Entry<String, JsonElement>> currentObj = jArrayStr.entrySet();
+
+            for (int j=0; j < currentObj.size(); j++){
+            LinkedTreeMap<String, JsonObject> obj = (LinkedTreeMap<String, JsonObject>) currentObj.toArray()[j];
+                String lessonName = String.valueOf(obj.get("Topic"));
+            }
+            Section sec = new Section();
+          //  sec.setHeader();
+        }
+
+        return new ArrayList<>();
     }
 
     private static String GetdescriptionFromSubFolderNames() {
         return "description here";
     }
 
-    private static Section[] BuildModelsFromMap(HashMap<String, Object> map) {
-        Section[] sections = new Section[map.keySet().size()];
-        try {
-            Gson gson = new Gson();
-            for(int i=0; i < sections.length; i++) {
-                Section section = new Section();
-                JsonObject json = new JsonObject();
-                Chapter[] chapters = gson.fromJson(map.toString(), new TypeToken<ArrayList<Chapter>>(){}.getType());
-               // section.setHeader();
-               // section.setFooter();
-                section.setHasHeader(true);
-            }
-
-        } catch (JsonSyntaxException e) {
-            e.printStackTrace();
-        }
-        return sections;
-    }
-
-    private static LinkedHashMap<String, ArrayList<Section>> BuildSections(HashMap firebaseData) {
-        return null;
-    }
 
     public interface sectionLoaded{
 
         void processSnapShot(DataSnapshot snapshot);
-    }
-
-    public static void GetLessons(String topLevelFolder) {
-
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        String baseUrl = "https://project-4399521862841014866.firebaseio.com/ctci/" + topLevelFolder;
-
-        StringBuilder url = new StringBuilder();
-        for(int i=0; i < topLevelFolder.length(); i++){
-            char c = topLevelFolder.charAt(i);
-            if(c == ' ')
-                url.append("%20");
-             else
-                url.append(c);
-        }//https://project-4399521862841014866.firebaseio.com/ctci/Arrays and Strings
-        String fullUrl = baseUrl +  ".json";
-        Query allChapters = mDatabase.child(topLevelFolder);
-        allChapters.addListenerForSingleValueEvent(new ValueEventListener() {
-         @Override
-         public void onDataChange(DataSnapshot dataSnapshot) {
-         }
-
-         @Override
-         public void onCancelled(DatabaseError databaseError) {
-         }
-     });
-    }
-
-    private static void ConvertSnapshotToSections(DataSnapshot dataSnapshot) {
-
-
-   //     MainActivity.MainPageFragment.DemoModel[] demos = new MainActivity.MainPageFragment.DemoModel[sections.length];
-//        for (int i = 0; i < sections.length; i++) {
-//            String folderName = sections[i];
-//            demos[i] = new MainActivity.MainPageFragment.DemoModel(folderName, "",CollapsingSectionsDemoActivity.class, folderName);
-//        }
     }
 }

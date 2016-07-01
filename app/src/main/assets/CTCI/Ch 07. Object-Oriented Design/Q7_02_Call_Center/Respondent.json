@@ -1,1 +1,0 @@
-{"Id":"530c0fe4-8f54-4ab7-ba10-2554f969166c","Topic":"Ch 07. Object-Oriented Design","Question":"","Solution":"package Q7_02_Call_Center;\r\n\r\nclass Respondent extends Employee {\r\n    public Respondent(CallHandler callHandler) {\r\n    \tsuper(callHandler);\r\n    \trank = Rank.Responder;\r\n    }\r\n}\r\n","Chapter":"Ch 07. Object-Oriented Design"}
