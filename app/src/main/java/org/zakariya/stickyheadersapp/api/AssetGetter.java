@@ -217,12 +217,14 @@ public class AssetGetter {
                 JsonObject lesson = obj.getValue();
                 String title = String.valueOf(lesson.get("Title"));
                 String solution = String.valueOf(lesson.get("Solution"));
-                 chapter = String.valueOf(lesson.get("Chapter"));
+                chapter = String.valueOf(lesson.get("Chapter"));
                 Lesson less = new Lesson(title,title,solution,title, chapter);
                 lessons.add(less);
             }
             Section sec = new Section();
             sec.setHeader(chapter);
+            sec.setFooter("End of: " + chapter);
+            sec.setNumberOfItems(lessons.size());
             sec.setLessons(lessons);
             results.add(sec);
         }
