@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.example.core.Chapter;
-import com.example.core.Directory;
 import com.example.core.Lesson;
 import com.example.core.Section;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +23,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
 import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
 
 import java.io.File;
@@ -209,15 +209,24 @@ public class AssetGetter {
         for (int i=0; i < jArrayStr.entrySet().size(); i++){
             Set<Entry<String, JsonElement>> currentObj = jArrayStr.entrySet();
 
+            ArrayList<Lesson> lessons = new ArrayList<>();
+            String chapter = "";
             for (int j=0; j < currentObj.size(); j++){
-            LinkedTreeMap<String, JsonObject> obj = (LinkedTreeMap<String, JsonObject>) currentObj.toArray()[j];
-                String lessonName = String.valueOf(obj.get("Topic"));
+            LinkedTreeMap.Entry<String, JsonObject> obj = (LinkedTreeMap.Entry) currentObj.toArray()[j];
+
+                JsonObject lesson = obj.getValue();
+                String title = String.valueOf(lesson.get("Title"));
+                String solution = String.valueOf(lesson.get("Solution"));
+                 chapter = String.valueOf(lesson.get("Chapter"));
+                Lesson less = new Lesson(title,title,solution,title, chapter);
+                lessons.add(less);
             }
             Section sec = new Section();
-          //  sec.setHeader();
+            sec.setHeader(chapter);
+            sec.setLessons(lessons);
+            results.add(sec);
         }
-
-        return new ArrayList<>();
+        return results;
     }
 
     private static String GetdescriptionFromSubFolderNames() {

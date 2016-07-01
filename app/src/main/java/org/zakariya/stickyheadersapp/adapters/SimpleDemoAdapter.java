@@ -157,15 +157,18 @@ public class SimpleDemoAdapter extends SectioningAdapter {
             section.setHeader(sectionInfo.get(i).getName());
             section.setFooter("End of : " + sectionInfo.get(i).getName());
             section.setIndex(i);
-            section.setNumberOfItems(sectionInfo.get(i).getSections().size());
+            section.setNumberOfItems(sectionInfo.get(i).getLessons() != null ? sectionInfo.get(i).getLessons().length : sectionInfo.get(i).getSections() !=null ? sectionInfo.get(i).getSections().size() : 0);
 
 			ArrayList<Section> lessonSections = sectionInfo.get(i).getSections();
+
             ArrayList<Lesson> arrLessons = new ArrayList<>();
             for (int j =0; j < lessonSections.size(); j++){
                 Lesson less = lessonSections.get(j).getLessons().get(0);
                 arrLessons.add(less);
             }
-			section.setLessons(arrLessons);
+
+			section.setIndex(i);
+
 			section.setLessons(arrLessons);
 			appendSection(i, section);
 		}
@@ -234,7 +237,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 
 	@Override
 	public int getNumberOfItemsInSection(int sectionIndex) {
-		return sections.get(sectionIndex).getLessons().size();
+		return sections.get(sectionIndex).getLessons() != null ? sections.get(sectionIndex).getLessons().size() : sections.get(sectionIndex).getSections() != null ? sections.get(sectionIndex).getSections().size() : 0;
 	}
 
 	@Override
