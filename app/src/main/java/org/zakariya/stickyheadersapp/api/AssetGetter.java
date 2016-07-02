@@ -29,6 +29,7 @@ import org.zakariya.stickyheadersapp.custom.SectionsLoaded;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -198,7 +199,7 @@ public class AssetGetter {
         });
     }
 
-    private static ArrayList<Section> BuildSectionAndLessonsFromJson(String json) {
+    public static ArrayList<Section> BuildSectionAndLessonsFromJson(String json) {
 
         Gson gson = new Gson();
         ArrayList<Section> results = new ArrayList<>();
@@ -206,27 +207,50 @@ public class AssetGetter {
 
         JsonObject jArrayStr = jObj.getAsJsonObject("directory");
 
-        for (int i=0; i < jArrayStr.entrySet().size(); i++){
-            Set<Entry<String, JsonElement>> currentObj = jArrayStr.entrySet();
+        try {
+            for (int i=0; i < jArrayStr.entrySet().size(); i++){
 
-            ArrayList<Lesson> lessons = new ArrayList<>();
-            String chapter = "";
-            for (int j=0; j < currentObj.size(); j++){
-            LinkedTreeMap.Entry<String, JsonObject> obj = (LinkedTreeMap.Entry) currentObj.toArray()[j];
+                //the sections
+                Set<Entry<String, JsonElement>> currentObj = jArrayStr.entrySet();
 
-                JsonObject lesson = obj.getValue();
-                String title = String.valueOf(lesson.get("Title"));
-                String solution = String.valueOf(lesson.get("Solution"));
-                chapter = String.valueOf(lesson.get("Chapter"));
-                Lesson less = new Lesson(title,title,solution,title, chapter);
-                lessons.add(less);
+                for (int j=0; j < currentObj.size(); j++) {
+                    Entry<String, JsonObject> obj = (Entry) currentObj.toArray()[j];
+                    Section sec = new Section();
+                    sec.setHasFooter(true);
+                    sec.setHasHeader(true);
+
+                    String chapter = "";
+
+                    ArrayList<Lesson> lessons = new ArrayList<>();
+
+                    chapter = obj.getKey();
+                    JsonObject lesson = obj.getValue();
+                    Set<Entry<String, JsonElement>> lessonfile = lesson.entrySet();
+                    Entry<String, JsonArray> tfileMap = (Entry<String, JsonArray>) lessonfile.toArray()[0];
+
+                    String title = tfileMap.getKey();
+                    JsonArray solutions = tfileMap.getValue();
+
+                    for (int k = 0; k < solutions.size(); k++) {
+                        JsonElement solEntries = solutions.get(k);
+                        Lesson less = new Lesson(title, "", solEntries.getAsString(), title, chapter);
+                        lessons.add(less);
+                    }
+
+                    if (j == 0) {
+                        sec.setHeader(chapter);
+                        sec.setFooter(String.format("End of: %s", chapter));
+                    }
+
+                    sec.setNumberOfItems(lessons.size());
+                    sec.setLessons(lessons);
+                    sec.setAdapterPosition(i);
+                    // sec.setIndex(i);
+                    results.add(sec);
+                }
             }
-            Section sec = new Section();
-            sec.setHeader(chapter);
-            sec.setFooter("End of: " + chapter);
-            sec.setNumberOfItems(lessons.size());
-            sec.setLessons(lessons);
-            results.add(sec);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return results;
     }

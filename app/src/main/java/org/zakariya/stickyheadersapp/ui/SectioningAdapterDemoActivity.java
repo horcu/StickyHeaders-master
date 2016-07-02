@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.core.Chapter;
 import com.example.core.Lesson;
+import com.example.core.Section;
 
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
 import org.zakariya.stickyheadersapp.api.AssetGetter;
@@ -31,6 +32,6 @@ public class SectioningAdapterDemoActivity extends DemoActivity {
             sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
             cacheController.WriteToCache(topLevelFolder, sections);
         }
-		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Chapter>(), false, false, false));
+		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Section>(), false, false, false));
 	}
 }

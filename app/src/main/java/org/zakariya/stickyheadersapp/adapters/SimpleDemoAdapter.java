@@ -140,7 +140,7 @@ public class SimpleDemoAdapter extends SectioningAdapter {
 	boolean showCollapsingSectionControls;
 	boolean showAdapterPositions;
 
-	public SimpleDemoAdapter(ArrayList<Chapter> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
+	public SimpleDemoAdapter(ArrayList<Section> sectionInfo, boolean showModificationControls, boolean showCollapsingSectionControls, boolean showAdapterPositions) {
 		this.showModificationControls = showModificationControls;
 		this.showCollapsingSectionControls = showCollapsingSectionControls;
 		this.showAdapterPositions = false;// showAdapterPositions;
@@ -148,52 +148,40 @@ public class SimpleDemoAdapter extends SectioningAdapter {
          AddSections(sectionInfo);
 	}
 
-    public void AddSections(ArrayList<Chapter> sectionInfo) {
-        sections = null;
-        sections = new ArrayList<>();
+    public void AddSections(ArrayList<Section> sectionInfo) {
+        if (sections != null) {
+            sections.clear();
+        }
 
-        for (int i = 0; i < sectionInfo.size(); i++) {
-            Section section = new Section();
-            section.setHeader(sectionInfo.get(i).getName());
-            section.setFooter("End of : " + sectionInfo.get(i).getName());
-            section.setIndex(i);
-            section.setNumberOfItems(sectionInfo.get(i).getLessons() != null ? sectionInfo.get(i).getLessons().length : sectionInfo.get(i).getSections() !=null ? sectionInfo.get(i).getSections().size() : 0);
+        try {
+            for (int i = 0; i < sectionInfo.size(); i++) {
+                Section section = new Section();
+                section.setHeader(sectionInfo.get(i).getHeader());
+                section.setFooter("End of : " + sectionInfo.get(i).getHeader());
+                section.setIndex(i);
+                section.setNumberOfItems(sectionInfo.get(i).getLessons() != null ? sectionInfo.get(i).getLessons().size() : 0);
 
-			ArrayList<Section> lessonSections = sectionInfo.get(i).getSections();
+                ArrayList<Lesson> lessonSections = sectionInfo.get(i).getLessons();
 
-            ArrayList<Lesson> arrLessons = new ArrayList<>();
-            for (int j =0; j < lessonSections.size(); j++){
-                Lesson less = lessonSections.get(j).getLessons().get(0);
-                arrLessons.add(less);
+                ArrayList<Lesson> arrLessons = new ArrayList<>();
+                for (int j =0; j < lessonSections.size(); j++){
+                    Lesson less = lessonSections.get(j);
+                    arrLessons.add(less);
+                }
+
+                section.setIndex(i);
+
+                section.setLessons(arrLessons);
+                appendSection(i, section);
             }
-
-			section.setIndex(i);
-
-			section.setLessons(arrLessons);
-			appendSection(i, section);
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        notifyAllSectionsDataSetChanged();
     }
 
-	public void AddSections(LinkedHashMap<String, ArrayList<Section>> sectionInfo, boolean hasChildren) {
-		sections = null;
-		sections = new ArrayList<>();
-		ArrayList<String> keys = new ArrayList<>(sectionInfo.keySet());
-		ArrayList<List<Section>> values = new ArrayList<List<Section>>(sectionInfo.values());
-
-		for (int i = 0; i < sectionInfo.keySet().size(); i++) {
-			String currentKey = keys.get(i);
-
-			Section section = new Section();
-			section.setHeader(currentKey);
-			section.setFooter("End of : " + currentKey);
-			section.setIndex(i);
-			section.getSections().addAll(values.get(i));
-			appendSection(i, section);
-		}
-	}
-
     void appendSection(int index,Section section) {
-		sections.add(index, section);
+        sections.add(index, section);
 	}
 
 	void onToggleSectionCollapse(int sectionIndex) {

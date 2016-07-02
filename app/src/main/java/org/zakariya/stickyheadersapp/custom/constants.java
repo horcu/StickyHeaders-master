@@ -11,4 +11,5 @@ public class constants {
     public static final String SECTIONS = "sections";
     public static final String FOLDER = "folder";
     public static final String LESSON = "lesson";
+    public static final String FILE = "file";
 }

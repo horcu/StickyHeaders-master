@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.core.Chapter;
 import com.example.core.Lesson;
+import com.example.core.Section;
 
 import org.zakariya.stickyheaders.StickyHeaderLayoutManager;
 import org.zakariya.stickyheadersapp.adapters.SimpleDemoAdapter;
@@ -51,6 +52,6 @@ public class HeaderCallbacksDemoActivity extends DemoActivity {
             sections = AssetGetter.GetLessonsAssets(this, topLevelFolder);
             cacheController.WriteToCache(topLevelFolder, sections);
         }
-		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Chapter>(), false, false, false));
+		recyclerView.setAdapter(new SimpleDemoAdapter(new ArrayList<Section>(), false, false, false));
 	}
 }
